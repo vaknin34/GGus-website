@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GGus.Web.Models
 {
-    public class poducts
+    public class Product
     {
         public int Id { get; set; }
         public String Name { get; set; }
