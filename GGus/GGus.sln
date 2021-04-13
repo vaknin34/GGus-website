@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGus.Web", "..\GGus.Web\GGus.Web.csproj", "{B623E2D1-4733-48CE-A522-89DD7FDBA955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGus.API", "..\GGus.API\GGus.API.csproj", "{B4500B6D-8BDA-4EF2-99ED-8611DAD6C1EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGus.BL", "..\GGus.BL\GGus.BL.csproj", "{28BC077F-16CB-4250-8FB4-2360EDA5C38A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B623E2D1-4733-48CE-A522-89DD7FDBA955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B623E2D1-4733-48CE-A522-89DD7FDBA955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B623E2D1-4733-48CE-A522-89DD7FDBA955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B623E2D1-4733-48CE-A522-89DD7FDBA955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4500B6D-8BDA-4EF2-99ED-8611DAD6C1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4500B6D-8BDA-4EF2-99ED-8611DAD6C1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4500B6D-8BDA-4EF2-99ED-8611DAD6C1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4500B6D-8BDA-4EF2-99ED-8611DAD6C1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BC077F-16CB-4250-8FB4-2360EDA5C38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BC077F-16CB-4250-8FB4-2360EDA5C38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BC077F-16CB-4250-8FB4-2360EDA5C38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BC077F-16CB-4250-8FB4-2360EDA5C38A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EF63508-976B-44A4-868A-C43756E409B7}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,231 @@
+body {
+    background-image: url("./Resources/1.jpg");
+}
+button.btn {
+    text-decoration: none;
+    background-color: black;
+    text-decoration-color: white;
+    color: white;
+
+}
+a.btn{
+    background-color: #eee; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+    border-style: none;
+    border-radius: 0%;
+    
+}
+img.logo{
+
+    display: block;
+    width: 250px;
+    height: 70px;
+    background-color: black;
+    
+}
+
+nav.navbar{
+    background-color: black;
+}
+
+
+.vertical-menu {
+    width: 12%; /* Set a width if you like */
+    margin-top: 0%;
+    margin-left: 5%;
+    border-style: solid;
+    border-color: #dc3545;
+    border-width: 1px;
+    position: fixed;
+    display: block;
+    z-index:1000;
+  }
+  
+  .vertical-menu a {
+    background-color:black ; /* Grey background color */
+    color: white; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 12px; /* Add some padding */
+    overflow: visible;
+    z-index:1000;
+  }
+  
+  .vertical-menu a:hover {
+    background-color:#dc3545; /*mouse-over */
+  }
+  div.dropdown-menu{
+    border-style: solid;
+    border-color: #dc3545;
+    border-width: 1px;
+    background-color: black;
+    position: fixed;
+    display: block;
+    overflow:visible;
+    z-index:1000;
+  }
+
+
+div.container{
+    margin-left: 0%;
+    width:10%;
+    height: 3%;
+    color: white;
+    box-sizing: content-box;
+    position: relative;
+    left: 0px;
+    border-style: solid;
+    border-color: white;
+    text-align: center;
+}
+
+
+div.container1{
+    margin-left: 0%;
+    border-color: white;
+    border-style: solid;
+    height: 60%;
+    width: 100%;
+    overflow-x: scroll;
+    position: relative;
+    left: 0px;
+    overflow:hidden;
+
+
+}
+
+  .master-container{
+    overflow-y: scroll;
+    margin-top: 0%;
+    margin-left:20%;
+    height: 76%;
+    width: 72%;
+    padding: 0% 0% 0% 0%;
+    border-width: 1px;
+    border-left: 20%;
+    border-right: 20%;
+    position: fixed;
+    z-index: auto;
+
+  }
+
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+.master-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.master-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+.privecy{
+    position: absolute;
+    bottom: 0%;
+    color: white;
+    font-size: xx-small;
+    text-align: left;
+    left: 0%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hide the images by default 
+.mySlides {
+  position: relative;
+}
+
+ Add a pointer when hovering over the thumbnail images
+.cursor {
+  cursor: pointer;
+}*/
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 1%;
+  color: white;
+  font-weight: bold;
+  font-size: 150%;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0%;
+  border-radius: 1% 1% 1% 1%;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
