@@ -135,9 +135,13 @@ div.container1 {
     
 }
 .tag-gallery {
-    left: 10%;
-    border-block-style: groove;
-    border-block-color: #1d3246;
+    color:aliceblue;
+    top:15px;
+    left:15px;
+    z-index: 2;
+    position: absolute;
+    margin-bottom: auto;
+    text-shadow:initial;
 }
 
 
