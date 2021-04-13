@@ -15,6 +15,11 @@ function nextSlide(container) {
 
 }
 
+
+function visitPage() {
+    window.location = 'https://localhost:44370/Home/index';
+} 
+
 function showSlides(container, n = 0) {
     var i;
     var slides = document.getElementsByClassName(container);
