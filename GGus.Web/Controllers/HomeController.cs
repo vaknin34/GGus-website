@@ -163,6 +163,25 @@ namespace GGus.Web.Controllers
             return View();
         }
 
+        public IActionResult MyGames()
+        {
+
+            return View();
+        }
+
+        public IActionResult News()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult SupportUs()
+        {
+
+            return View();
+        }
+
 
 
 
