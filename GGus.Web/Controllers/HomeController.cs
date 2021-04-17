@@ -47,9 +47,80 @@ namespace GGus.Web.Controllers
         }
 
 
+        public IActionResult Twodgames()
+        {
+
+            return View();
+        }
+
+        public IActionResult Animals()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult BoardGames()
+        {
+
+            return View();
+        }
+
+        public IActionResult Horror()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult Music()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult Puzzel()
+        {
+
+            return View();
+        }
+
+        public IActionResult Race()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult RPG()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult Simulation()
+        {
+
+            return View();
+        }
 
 
 
+        public IActionResult Sports()
+        {
+
+            return View();
+        }
+
+        public IActionResult Strategy()
+        {
+
+            return View();
+        }
+
+   
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
