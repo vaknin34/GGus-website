@@ -40,6 +40,14 @@ namespace GGus.Web.Controllers
 
 
 
+        public IActionResult Adventure()
+        {
+
+            return View();
+        }
+
+
+
 
 
 
