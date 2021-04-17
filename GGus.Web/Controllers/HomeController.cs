@@ -120,7 +120,52 @@ namespace GGus.Web.Controllers
             return View();
         }
 
-   
+
+
+        public IActionResult BestSeller()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult ComingSoon()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult GoodDeals()
+        {
+
+            return View();
+        }
+
+
+
+        public IActionResult LastView()
+        {
+
+            return View();
+        }
+
+
+        public IActionResult NewGames()
+        {
+
+            return View();
+        }
+
+        public IActionResult Recommended()
+        {
+
+            return View();
+        }
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
