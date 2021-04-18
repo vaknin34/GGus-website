@@ -54,7 +54,7 @@ namespace GGus.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Type,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,PhotosUrl5,Details,TrailerUrl")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace GGus.Web.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Type,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,PhotosUrl5,Details,TrailerUrl")] Product product)
         {
             if (id != product.Id)
             {
@@ -150,4 +150,5 @@ namespace GGus.Web.Controllers
             return _context.Product.Any(e => e.Id == id);
         }
     }
+
 }

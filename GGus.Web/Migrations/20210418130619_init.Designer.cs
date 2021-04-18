@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GGus.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210418104124_Init")]
-    partial class Init
+    [Migration("20210418130619_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,11 +27,35 @@ namespace GGus.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotosUrl1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotosUrl2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotosUrl3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotosUrl4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotosUrl5")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
+
+                    b.Property<string>("TrailerUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
