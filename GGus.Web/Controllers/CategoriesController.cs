@@ -25,6 +25,12 @@ namespace GGus.Web.Controllers
             return View(await _context.Product.Where(x => x.CategoryId == 1).ToListAsync());
         }
 
+        public async Task<IActionResult> Horror()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 11).ToListAsync());
+        }
+
 
 
         // GET: Categories
