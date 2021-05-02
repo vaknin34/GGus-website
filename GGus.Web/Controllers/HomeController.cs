@@ -29,12 +29,7 @@ namespace GGus.Web.Controllers
             return View();
         }
 
-        public IActionResult Action()
-        {
-
-            return View();
-        }
-
+       
 
 
         public IActionResult Adventure()
