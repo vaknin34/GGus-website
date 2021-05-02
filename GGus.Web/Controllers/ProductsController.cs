@@ -22,7 +22,8 @@ namespace GGus.Web.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            var applicationDbContext = _context.Product.Include(p => p.Category);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -34,6 +35,7 @@ namespace GGus.Web.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -46,15 +48,16 @@ namespace GGus.Web.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Category,nameof(Category.Id),nameof(Category.Name));
             return View();
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Type,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,PhotosUrl5,Details,TrailerUrl")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,CompanyName,Price,CategoryId,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,Details,TrailerUrl,PublishDate")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace GGus.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, nameof(Category.Id), nameof(Category.Name));
             return View(product);
         }
 
@@ -78,15 +82,16 @@ namespace GGus.Web.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, nameof(Category.Id), nameof(Category.Name));
             return View(product);
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Type,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,PhotosUrl5,Details,TrailerUrl")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CompanyName,Price,CategoryId,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,Details,TrailerUrl,PublishDate")] Product product)
         {
             if (id != product.Id)
             {
@@ -113,6 +118,7 @@ namespace GGus.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, nameof(Category.Id), nameof(Category.Name));
             return View(product);
         }
 
@@ -125,6 +131,7 @@ namespace GGus.Web.Controllers
             }
 
             var product = await _context.Product
+                .Include(p => p.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -150,5 +157,4 @@ namespace GGus.Web.Controllers
             return _context.Product.Any(e => e.Id == id);
         }
     }
-
 }

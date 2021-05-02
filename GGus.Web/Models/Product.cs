@@ -10,16 +10,41 @@ namespace GGus.Web.Models
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(50,MinimumLength = 5)]
+        [Required]
         public string Name { get; set; }
+        [StringLength(50, MinimumLength = 5)]
+        [Required]
+        [Display(Name = "Company Name")]
+        public string CompanyName { get; set; }
+        [Required]
+        [Range(0,500)]
+        [DataType(DataType.Currency)]
         public double Price { get; set; }
-        public string Type { get; set; }
+        [Display(Name = "Category Id")]
+        [Required]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        [Required]
+        [Display(Name = "Photo url")]
         public string PhotosUrl1 { get; set; }
+        [Display(Name = "Photo url")]
+        [Required]
         public string PhotosUrl2 { get; set; }
+        [Display(Name = "Photo url")]
+        [Required]
         public string PhotosUrl3 { get; set; }
+        [Display(Name = "Photo url")]
+        [Required]
         public string PhotosUrl4 { get; set; }
-        public string PhotosUrl5 { get; set; }
+        [Required]
         public string Details { get; set; }
+        [Required]
+        [Display(Name = "Trailer Url")]
         public string TrailerUrl { get; set; }
+        [Required]
+        [Display(Name = "Publish Date")]
+        public DateTime PublishDate { get; set; }
 
     }
 }
