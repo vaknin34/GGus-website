@@ -1,0 +1,18 @@
+﻿.card{
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    border: none !important;
+    cursor: pointer;
+}
+
+.btn-info{
+    background:#334554 !important;
+    border: #334554 !important;
+}
+.card-deck {
+width:80%;
+}
+
+
+
+
+
