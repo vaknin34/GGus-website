@@ -156,5 +156,12 @@ namespace GGus.Web.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+
+
+      
+
+
+
+
     }
 }
