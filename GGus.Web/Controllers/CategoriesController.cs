@@ -25,16 +25,47 @@ namespace GGus.Web.Controllers
             return View(await _context.Product.Where(x => x.CategoryId == 1).ToListAsync());
         }
 
+        public async Task<IActionResult> Adventure()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 2).ToListAsync());
+        }
+
+
+        public async Task<IActionResult> RPG()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 3).ToListAsync());
+        }
+
+        public async Task<IActionResult> Sport()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 4).ToListAsync());
+        }
+
+        public async Task<IActionResult> Race()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 5).ToListAsync());
+        }
+
         public async Task<IActionResult> Horror()
         {
 
-            return View(await _context.Product.Where(x => x.CategoryId == 11).ToListAsync());
+            return View(await _context.Product.Where(x => x.CategoryId == 6).ToListAsync());
         }
+        public async Task<IActionResult> Puzzle()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 7).ToListAsync());
+        }
+
 
         public async Task<IActionResult> Simulation()
         {
 
-            return View(await _context.Product.Where(x => x.CategoryId == 14).ToListAsync());
+            return View(await _context.Product.Where(x => x.CategoryId == 8).ToListAsync());
         }
 
 
