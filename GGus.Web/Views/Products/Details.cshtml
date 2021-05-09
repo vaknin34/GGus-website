@@ -5,7 +5,6 @@
 }
 
 <div>
-    <!--<h1  style="color:white;">@Html.DisplayFor(model => model.Name)</h1>-->
     <br />
 
 
@@ -49,7 +48,7 @@
         <br />
         <a>
             <h6 style="text-decoration-line:underline;"> Description:</h6>  @Html.DisplayFor(model => model.Details)
-            <br/>
+            <br />
         </a>
         <a>
             <br />
@@ -71,13 +70,61 @@
 
         <br />
         <br />
-        <div class="btn-group"">
+        <div class="btn-group" ">
             <a href="#" class="btn btn-outline-success" style="border-color:white;">Add To Cart</a>
-            <a href="#" class="btn btn-outline-warning"style="border-color:white;">Add To WishList</a>
+            <a href="#" class="btn btn-outline-warning" style="border-color:white;">Add To WishList</a>
             <a href="#" class="btn btn-outline-light" onclick="history.back()">Go Back</a>
         </div>
-
     </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+           
+
+
+
+
+            <form asp-controller="CommentsController" asp-action="Create">
+                    <div class="form-group">
+                        <label asp-for="text" class="control-label"></label>
+                        <input asp-for="text" class="form-control" />
+                        <span asp-validation-for="text" class="text-danger"></span>
+                    </div>
+                    <div class="form-group invalid-tooltip">
+                        <input asp-for="date" class="form-control" value=@DateTime.Today>
+                    </div>
+                    <div class="form-group invalid-tooltip">
+                        <input asp-for="Productid" class="form-control" asp-items="ViewBag.Productid" value=@Html.DisplayFor(model => model.Id)>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-success">
+                    </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <!--<form asp-controller="Comments" asp-action="Create">
+          <div style="top:90%;text-align:left;width:35%;position:absolute;right:100px;">
+              <div class="col-md-4">
+                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  <div class="form-group">
+                      <h5>Add Comment</h5>
+                      <label asp-for="text" class="control-label"></label>
+                      <input asp-for="text" class="form-control" />
+                      <span asp-validation-for="text" class="text-danger"></span>
+                  </div>
+                  @DateTime.Now
+                  @Html.ViewData.Model.Name
+                  <div class="form-group">
+                      <input type="submit" value="Create" class="btn btn-primary" />
+                  </div>
+              </div>
+          </div>
+      </form>-->
 
 </div>
 
