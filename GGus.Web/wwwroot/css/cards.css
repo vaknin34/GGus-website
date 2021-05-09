@@ -1,4 +1,5 @@
-﻿.card{
+﻿@import url('file:///C:\Users\User\Desktop\Computer Science\Applications\GGus\GGus.Web\wwwroot\css\cards.css');
+.card{
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     border: none !important;
     cursor: pointer;
@@ -11,7 +12,6 @@
 .card-deck {
 width:80%;
 }
-
 
 
 
