@@ -57,7 +57,7 @@ namespace GGus.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,text,date,Productid")] Comment comment)
+        public async Task<IActionResult> Create([Bind("Id,text,Productid")] Comment comment)
         {
             if (ModelState.IsValid)
             {

@@ -97,7 +97,7 @@ namespace GGus.Web.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
-            ViewData["products"] = new SelectList(_context.Product.Where(x => x.CategoryId == null),nameof(Product.Id),nameof(Product.Name));
+            ViewData["products"] = new SelectList(_context.Product.Where(x => x.CategoryId == 0),nameof(Product.Id),nameof(Product.Name));
             return View();
         }
 

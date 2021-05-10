@@ -46,31 +46,26 @@
     <div class="container" style="width:30%;height:55%;position:absolute;left:100px; text-align:left;border:none;">
         <h1 style="color:white;">@Html.DisplayFor(model => model.Name)</h1>
         <br />
-        <a>
-            <h6 style="text-decoration-line:underline;"> Description:</h6>  @Html.DisplayFor(model => model.Details)
-            <br />
-        </a>
-        <a>
-            <br />
+        <div>
+            <h6 style="text-decoration-line:underline;"> Description:</h6>  @Html.DisplayFor(model => model.Details)            
+        </div>
+        <div>            
             <h6 style="text-decoration-line:underline; display:inline;">  Company Name:</h6>  @Html.DisplayFor(model => model.CompanyName)
-        </a>
-        <a>
-            <br />
+        </div>
+        <div>
             <h6 style="text-decoration-line:underline; display:inline;"> Release Date:</h6>  @Html.DisplayFor(model => model.PublishDate)
-        </a>
-        <a>
-            <br />
+        </div>
+        <div>
             <h6 style="text-decoration-line:underline;display:inline;"> Category:</h6>
-            <button class="btn btn-link" href="javascript:history.back()"> @Html.DisplayFor(model => model.Category.Name)</button>
-        </a>
-        <a>
-            <br />
+            <a class="btn btn-link" href="javascript:history.back()">@Html.DisplayFor(model => model.Category.Name)</a>
+        </div>
+        <div>
             <h6 style="text-decoration-line:underline;display:inline;"> Price:</h6>  @Html.DisplayFor(model => model.Price)
-        </a>
+        </div>
 
         <br />
         <br />
-        <div class="btn-group" ">
+        <div class="btn-group">
             <a href="#" class="btn btn-outline-success" style="border-color:white;">Add To Cart</a>
             <a href="#" class="btn btn-outline-warning" style="border-color:white;">Add To WishList</a>
             <a href="#" class="btn btn-outline-light" onclick="history.back()">Go Back</a>
@@ -85,17 +80,13 @@
 
 
 
-            <form asp-controller="CommentsController" asp-action="Create">
+            <form asp-controller="Comments" asp-action="Create">
                     <div class="form-group">
-                        <label asp-for="text" class="control-label"></label>
-                        <input asp-for="text" class="form-control" />
-                        <span asp-validation-for="text" class="text-danger"></span>
+                        <label class="control-label">Comment:</label>
+                        <input name="text" class="form-control" />                        
                     </div>
                     <div class="form-group invalid-tooltip">
-                        <input asp-for="date" class="form-control" value=@DateTime.Today>
-                    </div>
-                    <div class="form-group invalid-tooltip">
-                        <input asp-for="Productid" class="form-control" asp-items="ViewBag.Productid" value=@Html.DisplayFor(model => model.Id)>
+                        <input type="hidden" name="Productid" value=@Html.DisplayFor(model => model.Id)>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-success">
