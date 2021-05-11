@@ -47,6 +47,9 @@ function showSlides(container, n = 0) {
     slides[slideIndex - 1].style.display = "block";
     //dots[slideIndex - 1].className += " active";
     //captionText.innerHTML = dots[slideIndex - 1].alt;
+
+
+    //hi shalom kisse leyad halone 
 }
 
 //exmaple

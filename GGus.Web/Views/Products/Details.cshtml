@@ -73,16 +73,11 @@
     </div>
 
 
-    <div class="row">
+    <div class="row" style="position:absolute;bottom:50px;margin-left:40%;">
         <div class="col-md-4">
-           
-
-
-
-
             <form asp-controller="Comments" asp-action="Create">
                     <div class="form-group">
-                        <label class="control-label">Comment:</label>
+                        <label class="control-label" style="color:white;">Comment:</label>
                         <input name="text" class="form-control" />                        
                     </div>
                     <div class="form-group invalid-tooltip">
@@ -94,29 +89,6 @@
             </form>
         </div>
     </div>
-
-
-
-
-    <!--<form asp-controller="Comments" asp-action="Create">
-          <div style="top:90%;text-align:left;width:35%;position:absolute;right:100px;">
-              <div class="col-md-4">
-                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                  <div class="form-group">
-                      <h5>Add Comment</h5>
-                      <label asp-for="text" class="control-label"></label>
-                      <input asp-for="text" class="form-control" />
-                      <span asp-validation-for="text" class="text-danger"></span>
-                  </div>
-                  @DateTime.Now
-                  @Html.ViewData.Model.Name
-                  <div class="form-group">
-                      <input type="submit" value="Create" class="btn btn-primary" />
-                  </div>
-              </div>
-          </div>
-      </form>-->
-
 </div>
 
 
