@@ -55,18 +55,18 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/Home/News"><button class="btn" href="/Home">News</button></a>
+                        <a href="/Home/News" class="btn">News</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Home/MyGames"><button class="btn" href="#">My Games</button></a>
+                        <a href="/Home/MyGames" class="btn">My Games</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Home/SupportUs"><button class="btn" href="#">Support Us</button></a>
+                        <a class="btn" data-toggle="modal" data-target="#supportus">Support Us</a>
                     </li>
                 </ul>
-                <form class="d-flex ">
-                    <input class="form-control me-2 col-12 offset-10" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn" type="submit">Search</button>
+                <form class="d-flex" asp-controller="Products" asp-action="Search">
+                    <input class="form-control me-2 col-12 offset-10" type="search" placeholder="Search" aria-label="Search" name="productName" />
+                    <input class="btn btn-dark" type="submit" value="Search" style="padding:7px 10px 7px 10px;" />
                 </form>
             </div>
         </div>
@@ -87,9 +87,48 @@
             </a>
         </center>
     </div>
+
+    <div class="modal fade" id="supportus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">About Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Developers :</p>
+                    <p>Eynav Ptia - EynavPere@gmail.com</p>
+                    <p>Koral Duel - Koraduel2113@gmail.com</p>
+                    <p>Niv Vaknin - Nivos123@gmail.com</p>
+                    <p>Samuel Krief - SamiAcabai@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/js.js"></script>
-    
+
 
     @RenderSection("Scripts", required: false)
 
