@@ -23,6 +23,17 @@ namespace GGus.Web.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime Age { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public int PhoneNumber { get; set; }
+
         public UserType Type { get; set; } = UserType.Client;
     }
 }

@@ -34,7 +34,7 @@ namespace GGus.Web.Controllers
                 orderby a.Name
                 select a.Name + " " + a.Price;
            */
-            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName) || a.Details.Contains(productName));
+            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
             return View("searchlist", await applicationDbContext.ToListAsync());
         }
 
