@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GGus.Web.Controllers
 {
@@ -58,6 +59,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category,nameof(Category.Id),nameof(Category.Name));
@@ -168,9 +170,8 @@ namespace GGus.Web.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+        
 
-
-      
 
 
 

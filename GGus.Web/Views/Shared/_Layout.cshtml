@@ -15,17 +15,25 @@
 <body>
     <!--first navbar - login -->
     <nav class="navbar navbar-expand-lg">
-        
-            <li class="nav-item container-fluid col-12 offset-11">
-                <a href="/Users/Login" class="btn">Login</a>
-            </li>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        </button>
+        <div class="nav-item container-fluid col-12 offset-11" >
+            @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
+            {
+                <a class="nav-link text-light" asp-action="LogOut" asp-controller="Users" asp-area="">LogOut</a>
+            }
+            else
+            {
+                <a class="nav-link text-light" asp-action="LogIn" asp-controller="Users" asp-area="">Login</a>
+            }
 
-        <!--second navbar - logo+buttons-->
+        </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            </button>
+       
     </nav>
+    <!--second navbar - logo+buttons-->
+
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid shadow-lg p-3 mb-5">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar collapse"

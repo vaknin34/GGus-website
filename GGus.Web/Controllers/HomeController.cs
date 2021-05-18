@@ -1,4 +1,6 @@
 ﻿using GGus.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -65,10 +67,10 @@ namespace GGus.Web.Controllers
 
             return View();
         }
-
+        [Authorize]
         public IActionResult MyGames()
         {
-
+           
             return View();
         }
 
@@ -86,13 +88,16 @@ namespace GGus.Web.Controllers
         }
 
 
-
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        public IActionResult AccessDenined()
+        {
+            return View();
         }
     }
 }

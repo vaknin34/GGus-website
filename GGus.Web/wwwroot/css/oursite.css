@@ -77,7 +77,6 @@ div.container1 {
 /* Hide scrollbar for IE, Edge and Firefox */
 .master-container {
     -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
 }
 
 /* Bottom line with our name */

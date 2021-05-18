@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace GGus.Web.Controllers
 {
@@ -155,7 +159,7 @@ namespace GGus.Web.Controllers
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Users/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -169,7 +173,9 @@ namespace GGus.Web.Controllers
                 {
                     _context.Add(user);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    var m = _context.User.FirstOrDefault(u => u.Username == user.Username&& u.Password==user.Password);
+                    Signin(m);
+                    return RedirectToAction(nameof(Index),"Home");
                 }
                 else
                 {
@@ -195,6 +201,7 @@ namespace GGus.Web.Controllers
             var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
             if (q != null)
             {
+                Signin(q);
                 return RedirectToAction(nameof(Index), "Home");
             }
             else
@@ -204,11 +211,33 @@ namespace GGus.Web.Controllers
             }
 
         }
+        private async void Signin(User account)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, account.Username),
+                    new Claim(ClaimTypes.Role, account.Type.ToString()),
+                };
 
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
+            var authProperties = new AuthenticationProperties
+            {
+                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
+            };
 
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
 
-
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
     }
 
 }
