@@ -32,7 +32,7 @@ namespace GGus.Web
                     options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
 
             services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(10); });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => { options.LoginPath = "/Users/Login"; options.AccessDeniedPath = "/Users/AccessDenied"; });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => { options.LoginPath = "/Users/Login"; options.AccessDeniedPath = "/Home/AccessDenined"; });
 
 
 
