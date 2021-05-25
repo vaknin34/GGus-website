@@ -106,6 +106,7 @@ namespace GGus.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CompanyName,Price,CategoryId,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,Details,TrailerUrl,PublishDate")] Product product)
         {
             if (id != product.Id)

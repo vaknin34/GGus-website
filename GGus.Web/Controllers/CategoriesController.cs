@@ -97,6 +97,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["products"] = new SelectList(_context.Product.Where(x => x.CategoryId == 0),nameof(Product.Id),nameof(Product.Name));
@@ -122,6 +123,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -173,6 +175,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
