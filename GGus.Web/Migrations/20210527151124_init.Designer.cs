@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GGus.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210517133955_init")]
+    [Migration("20210527151124_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,29 +34,6 @@ namespace GGus.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("GGus.Web.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Productid")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Productid");
-
-                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("GGus.Web.Models.Product", b =>
@@ -149,17 +126,6 @@ namespace GGus.Web.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("GGus.Web.Models.Comment", b =>
-                {
-                    b.HasOne("GGus.Web.Models.Product", "product")
-                        .WithMany("Comments")
-                        .HasForeignKey("Productid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("product");
-                });
-
             modelBuilder.Entity("GGus.Web.Models.Product", b =>
                 {
                     b.HasOne("GGus.Web.Models.Category", "Category")
@@ -174,11 +140,6 @@ namespace GGus.Web.Migrations
             modelBuilder.Entity("GGus.Web.Models.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("GGus.Web.Models.Product", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

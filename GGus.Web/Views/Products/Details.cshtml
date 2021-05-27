@@ -71,24 +71,6 @@
             <a href="/Categories/@Html.DisplayFor(model => model.Category.Name)" class="btn btn-outline-light">Back to Game Category</a>
         </div>
     </div>
-
-
-    <div class="row" style="position:absolute;bottom:50px;margin-left:40%;">
-        <div class="col-md-4">
-            <form asp-controller="Comments" asp-action="Create">
-                    <div class="form-group">
-                        <label class="control-label" style="color:white;">Comment:</label>
-                        <input name="text" class="form-control" />                        
-                    </div>
-                    <div class="form-group invalid-tooltip">
-                        <input type="hidden" name="Productid" value=@Html.DisplayFor(model => model.Id)>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-success">
-                    </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 
