@@ -19,5 +19,7 @@ namespace GGus.Web.Data
         public DbSet<GGus.Web.Models.Category> Category { get; set; }
 
         public DbSet<GGus.Web.Models.User> User { get; set; }
+
+        public DbSet<GGus.Web.Models.Cart> Cart { get; set; }
     }
 }

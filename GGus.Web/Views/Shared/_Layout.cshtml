@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <!--  <link rel="stylesheet" href="~/css/site.css" />-->
     <link href="~/css/oursite.css" rel="stylesheet">
     <link href="~/css/login.css" rel="stylesheet">
@@ -22,25 +23,33 @@
             {
                 <p class="nav-link text-light">
                     Hello @Context.User.Identity.Name   |
+
+                    <a class="btn-link text-light shopping-cart-button" asp-action="MyGames" asp-controller="Home" asp-area="">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="text"> Cart </span>
+                        
+                    </a> |
+                    
                     <a class="btn-link text-light" asp-action="LogOut" asp-controller="Users" asp-area="">LogOut</a>
-                </p>
 
-            }
-            else
-            {
-                <p class="nav-link text-light">
-                    <a class="btn-link text-light" asp-action="LogIn" asp-controller="Users" asp-area="">Login</a> |
-                    <a class="btn-link text-light" asp-action="Register" asp-controller="Users" asp-area="">Register</a>
-                </p>
-            }
+                 </p>
 
-        </div>
+        }
+        else
+        {
+            <p class="nav-link text-light">
+                <a class="btn-link text-light" asp-action="LogIn" asp-controller="Users" asp-area="">Login</a> |
+                <a class="btn-link text-light" asp-action="Register" asp-controller="Users" asp-area="">Register</a>
+            </p>
+        }
+
+            </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             </button>
-       
-    </header>
+
+        </header>
     <!--second navbar - logo+buttons-->
 
     <nav class="navbar navbar-expand-lg">

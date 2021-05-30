@@ -1,4 +1,6 @@
 ﻿
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
 p.nameStyle{
     color:aliceblue;
 }
@@ -16,3 +18,17 @@ header.login {
     min-height: 100%;
     padding: 20px;
 }
+
+
+
+
+
+
+
+.shopping-cart-button {
+    background-color: #334554;
+}
+
+
+
+

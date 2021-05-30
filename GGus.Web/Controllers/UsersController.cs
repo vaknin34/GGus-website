@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
@@ -125,7 +124,6 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Users/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,9 +176,9 @@ namespace GGus.Web.Controllers
                 {
                     _context.Add(user);
                     await _context.SaveChangesAsync();
-                    var m = _context.User.FirstOrDefault(u => u.Username == user.Username&& u.Password==user.Password);
+                    var m = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
                     Signin(m);
-                    return RedirectToAction(nameof(Index),"Home");
+                    return RedirectToAction(nameof(Index), "Home");
                 }
                 else
                 {
@@ -244,5 +242,4 @@ namespace GGus.Web.Controllers
             return RedirectToAction("Login");
         }
     }
-
 }

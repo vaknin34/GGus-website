@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace GGus.Web.Controllers
 {
@@ -20,59 +19,7 @@ namespace GGus.Web.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Action()
-        {
-            
-            return View(await _context.Product.Where(x => x.CategoryId == 1).ToListAsync());
-        }
-
-        public async Task<IActionResult> Adventure()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 2).ToListAsync());
-        }
-
-
-        public async Task<IActionResult> RPG()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 3).ToListAsync());
-        }
-
-        public async Task<IActionResult> Sport()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 4).ToListAsync());
-        }
-
-        public async Task<IActionResult> Race()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 5).ToListAsync());
-        }
-
-        public async Task<IActionResult> Horror()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 6).ToListAsync());
-        }
-        public async Task<IActionResult> Puzzle()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 7).ToListAsync());
-        }
-
-
-        public async Task<IActionResult> Simulation()
-        {
-
-            return View(await _context.Product.Where(x => x.CategoryId == 8).ToListAsync());
-        }
-
-
-
         // GET: Categories
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Category.ToListAsync());
@@ -97,10 +44,8 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Create
-        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            ViewData["products"] = new SelectList(_context.Product.Where(x => x.CategoryId == 0),nameof(Product.Id),nameof(Product.Name));
             return View();
         }
 
@@ -109,12 +54,10 @@ namespace GGus.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category,int[] products)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
-                category.Products = new List<Product>();
-                category.Products.AddRange(_context.Product.Where(x => products.Contains(x.Id)));
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -123,7 +66,6 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -175,7 +117,6 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -208,5 +149,55 @@ namespace GGus.Web.Controllers
         {
             return _context.Category.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> Action()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 1).ToListAsync());
+        }
+
+        public async Task<IActionResult> Adventure()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 2).ToListAsync());
+        }
+
+
+        public async Task<IActionResult> RPG()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 3).ToListAsync());
+        }
+
+        public async Task<IActionResult> Sport()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 4).ToListAsync());
+        }
+
+        public async Task<IActionResult> Race()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 5).ToListAsync());
+        }
+
+        public async Task<IActionResult> Horror()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 6).ToListAsync());
+        }
+        public async Task<IActionResult> Puzzle()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 7).ToListAsync());
+        }
+
+
+        public async Task<IActionResult> Simulation()
+        {
+
+            return View(await _context.Product.Where(x => x.CategoryId == 8).ToListAsync());
+        }
+
     }
 }
