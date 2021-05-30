@@ -87,6 +87,12 @@ namespace GGus.Web.Controllers
             return View();
         }
 
+        public IActionResult VisitUs()
+        {
+
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
