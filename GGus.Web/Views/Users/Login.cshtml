@@ -2,13 +2,13 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "_LoginLayout";
+    
 }
 
-<h1>Login</h1>
+<h1 class="text-light">Login</h1>
 
 <hr />
-<div class="row">
+<div class="wrapper text-light">
     <div class="col-md-4">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,14 +29,14 @@
         <!--Prevents duplication of users-->
         @if (ViewBag.Error != null)
         {
-        <div class="text-danger">@ViewBag.Error</div>
+            <div class="text-danger">@ViewBag.Error</div>
         }
     </div>
 </div>
 
-<div>
-    Not registered? <a asp-action="Register">Click here</a> to regiser
-</div>
+<p class="nameStyle">
+    Not yet registered? <a asp-action="Register">Click here</a> to regiser
+</p>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

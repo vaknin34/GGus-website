@@ -2,13 +2,12 @@
 
 @{
     ViewData["Title"] = "Register";
-    Layout = "_LoginLayout";
 }
 
-<h1>Register a new user</h1>
+<h1 class="text-light">Register a new user</h1>
 
 <hr />
-<div class="row">
+<div class="wrapper text-light">
     <div class="col-md-4">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -49,9 +48,9 @@
     </div>
 </div>
 
-<div>
+<p class="nameStyle">
     Already registered? <a asp-action="Login">Click here</a> to login
-</div>
+</p>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
