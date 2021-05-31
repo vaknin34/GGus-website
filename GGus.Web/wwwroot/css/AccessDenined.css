@@ -1,0 +1,13 @@
+﻿
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+hr.hrStyle {
+    margin:auto;
+    width:50%;
+}
+span.photoStyle {
+    width: 16px;
+    height: 16px;
+    fill:currentColor;
+    
+}
