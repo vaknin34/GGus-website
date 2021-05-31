@@ -1,14 +1,13 @@
-﻿@model GGus.Web.Models.Product
+﻿<link href="~/css/cards.css" rel="stylesheet">
+
+@model GGus.Web.Models.Product
 
 @{
     ViewData["Title"] = "Details";
 }
 
 <div>
-    <br />
-
-
-    <div id="shalom" class="carousel slide" data-ride="carousel" data-interval="false" style="width:50%;height:50%;position:absolute;right:100px;">
+    <div id="shalom" class="carousel slide carousel-game-details" data-ride="carousel" data-interval="false">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -43,7 +42,7 @@
         </a>
     </div>
 
-    <div class="container" style="width:30%;height:55%;position:absolute;left:100px; text-align:left;border:none;">
+    <div class="container" style="width: 30%; height: 55%; position: absolute; left: 100px; text-align: left; border: none;">
         <h1 style="color:white;">@Html.DisplayFor(model => model.Name)</h1>
         <br />
         <div>
@@ -63,11 +62,10 @@
             <h6 style="text-decoration-line:underline;display:inline;"> Price:</h6>  @Html.DisplayFor(model => model.Price)
         </div>
 
-        <br />
-        <br />
+        <hr/>
         <div class="btn-group">
             <a href="#" class="btn btn-outline-success" style="border-color:white;">Add To Cart</a>
-            <a href="#" class="btn btn-outline-warning" style="border-color:white;">Add To WishList</a>
+            <!--<a href="#" class="btn btn-outline-warning" style="border-color:white;">Add To WishList</a>-->
             <a href="/Categories/@Html.DisplayFor(model => model.Category.Name)" class="btn btn-outline-light">Back to Game Category</a>
         </div>
     </div>

@@ -52,9 +52,13 @@ input.searchStyle {
     padding: 7px 10px 7px 10px;
 }
 
+section.abc{
 
+}
 
-
-
-
-
+.carousel-game-details {
+   width:50%;
+   height:50%;
+   position:absolute;
+   right:100px;
+}
