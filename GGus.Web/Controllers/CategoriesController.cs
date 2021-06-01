@@ -199,5 +199,35 @@ namespace GGus.Web.Controllers
             return View(await _context.Product.Where(x => x.CategoryId == 8).ToListAsync());
         }
 
+        public async Task<IActionResult> CommingSoon()
+        {
+
+            return View(await _context.Product.Where(x => x.Id % 12 == 0).ToListAsync());
+        }
+
+        public async Task<IActionResult> BestSeller()
+        {
+
+            return View(await _context.Product.Where(x=>x.Id % 12 == 1).ToListAsync());
+        }
+
+        public async Task<IActionResult> GoodDeals()
+        {
+
+            return View(await _context.Product.Where(x => x.Id % 8 == 2).ToListAsync());
+        }
+
+        public async Task<IActionResult> NewGames()
+        {
+
+            return View(await _context.Product.Where(x => x.Id % 12 == 3).ToListAsync());
+        }
+
+        public IActionResult FanFavorites()
+        {
+
+            return View();
+        }
+
     }
 }

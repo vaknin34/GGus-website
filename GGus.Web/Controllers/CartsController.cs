@@ -25,6 +25,13 @@ namespace GGus.Web.Controllers
             var applicationDbContext = _context.Cart.Include(c => c.User);
             return View(await applicationDbContext.ToListAsync());
         }
+        // GET: Carts/Details
+        public IActionResult MyCart()
+        {
+            ViewData["products"] = _context.Product;
+            return View();
+        }
+
 
         // GET: Carts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -48,7 +55,7 @@ namespace GGus.Web.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email");
+            ViewData["UserId"] = new SelectList(_context.User, "Id","Username");
             return View();
         }
 
@@ -65,7 +72,7 @@ namespace GGus.Web.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
             return View(cart);
         }
 
@@ -82,7 +89,7 @@ namespace GGus.Web.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
             return View(cart);
         }
 
@@ -102,6 +109,7 @@ namespace GGus.Web.Controllers
             {
                 try
                 {
+                    
                     _context.Update(cart);
                     await _context.SaveChangesAsync();
                 }
@@ -118,7 +126,7 @@ namespace GGus.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
             return View(cart);
         }
 
@@ -156,5 +164,14 @@ namespace GGus.Web.Controllers
         {
             return _context.Cart.Any(e => e.Id == id);
         }
+
+        public IActionResult AddToCart(Product product)
+        {
+             
+
+            return View();
+        }
+        
+
     }
 }

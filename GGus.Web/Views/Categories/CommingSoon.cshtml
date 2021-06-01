@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Comming Soon";
+}
+@model IEnumerable<GGus.Web.Models.Product>
+<link href="~/css/cards.css" rel="stylesheet" />
+
+
+<h1 class="game-title">Comming Soon Page</h1>
+
+
+<div class="card-group">
+    <div class="row cardgrouprow">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm collumn">
+                <div class="card btn-outline-dark btn-width">
+                    <a class="asp-style-card"asp-route-id="@item.Id">
+                            <img src=@item.PhotosUrl1 class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                            </div>
+                    </a>
+                    
+                </div>
+            </div>
+        }
+    </div>
+</div>

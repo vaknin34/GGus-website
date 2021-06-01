@@ -31,42 +31,6 @@ namespace GGus.Web.Controllers
             return View();
         }
 
-        public IActionResult BestSeller()
-        {
-
-            return View();
-        }
-
-
-        public IActionResult CommingSoon()
-        {
-
-            return View();
-        }
-
-
-        public IActionResult GoodDeals()
-        {
-
-            return View();
-        }
-
-
-
-
-
-
-        public IActionResult NewGames()
-        {
-
-            return View();
-        }
-
-        public IActionResult FanFavorites()
-        {
-
-            return View();
-        }
         [Authorize]
         public IActionResult MyGames()
         {
