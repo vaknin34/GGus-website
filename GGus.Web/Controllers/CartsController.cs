@@ -167,8 +167,6 @@ namespace GGus.Web.Controllers
 
         public IActionResult AddToCart(Product product)
         {
-             
-
             return View();
         }
         

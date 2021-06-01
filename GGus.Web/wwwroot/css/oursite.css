@@ -67,7 +67,6 @@ div.container1 {
 }*/
 
 .carousel{
-    width:70%;
     height:70%;
     z-index:auto;
 }
@@ -117,7 +116,10 @@ div.container1 {
     text-shadow:initial;
 }
 
-
+.carousel-pad {
+    padding: 0px 0px 60px 0px;
+    width:70%;
+}
 
 
 
