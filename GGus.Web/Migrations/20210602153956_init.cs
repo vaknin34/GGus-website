@@ -91,21 +91,23 @@ namespace GGus.Web.Migrations
                 name: "CartProduct",
                 columns: table => new
                 {
-                    CartsId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CartId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartProduct", x => new { x.CartsId, x.ProductsId });
+                    table.PrimaryKey("PK_CartProduct", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartProduct_Cart_CartsId",
-                        column: x => x.CartsId,
+                        name: "FK_CartProduct_Cart_CartId",
+                        column: x => x.CartId,
                         principalTable: "Cart",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CartProduct_Product_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_CartProduct_Product_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -118,9 +120,14 @@ namespace GGus.Web.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartProduct_ProductsId",
+                name: "IX_CartProduct_CartId",
                 table: "CartProduct",
-                column: "ProductsId");
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProduct_ProductId",
+                table: "CartProduct",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_CategoryId",

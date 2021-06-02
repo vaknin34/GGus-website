@@ -20,24 +20,13 @@ namespace GGus.Web.Controllers
             _context = context;
         }
 
-        // GET: Products
+
         [Authorize(Roles = "Admin")]
+        // GET: Products
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Product.Include(p => p.Category);
             return View(await applicationDbContext.ToListAsync());
-        }
-
-        //Search Product
-        public async Task<IActionResult> Search(string productName)
-        {
-            /* var obj = from a in _context.Product.Include(p => p.Category)
-                 where(a.Name.Contains(productName) || a.Details.Contains(productName))
-                 orderby a.Name
-                 select a.Name + " " + a.Price;
-            */
-            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
-            return View("searchlist", await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -60,7 +49,6 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Products/Create
-
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
@@ -175,5 +163,36 @@ namespace GGus.Web.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+
+        //Search Product
+        public async Task<IActionResult> Search(string productName)
+        {
+            /* var obj = from a in _context.Product.Include(p => p.Category)
+                 where(a.Name.Contains(productName) || a.Details.Contains(productName))
+                 orderby a.Name
+                 select a.Name + " " + a.Price;
+            */
+            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
+            return View("searchlist", await applicationDbContext.ToListAsync());
+        }
+     /*   [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(Product product)
+        {
+            var p = _context.Product.Where(x => x.Id == product.Id).FirstOrDefault();
+            if (p != null)
+            {
+                CartProduct cartProduct = new CartProduct();
+                cartProduct.ProductId = p.Id;
+                cartProduct.CartId = _context.User.Where()
+                return RedirectToAction(nameof(Index), "Home");
+            }
+            else
+            {
+                ViewData["Error"] = "Username and/or password are incorrect.";
+                return View(user);
+            }
+
+        }*/
     }
 }

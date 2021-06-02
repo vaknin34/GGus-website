@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GGus.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210530162757_init")]
+    [Migration("20210602153956_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,21 +20,6 @@ namespace GGus.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CartProduct", b =>
-                {
-                    b.Property<int>("CartsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("CartProduct");
-                });
 
             modelBuilder.Entity("GGus.Web.Models.Cart", b =>
                 {
@@ -55,6 +40,28 @@ namespace GGus.Web.Migrations
                         .IsUnique();
 
                     b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("GGus.Web.Models.CartProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartProduct");
                 });
 
             modelBuilder.Entity("GGus.Web.Models.Category", b =>
@@ -162,21 +169,6 @@ namespace GGus.Web.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("CartProduct", b =>
-                {
-                    b.HasOne("GGus.Web.Models.Cart", null)
-                        .WithMany()
-                        .HasForeignKey("CartsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GGus.Web.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("GGus.Web.Models.Cart", b =>
                 {
                     b.HasOne("GGus.Web.Models.User", "User")
@@ -186,6 +178,25 @@ namespace GGus.Web.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GGus.Web.Models.CartProduct", b =>
+                {
+                    b.HasOne("GGus.Web.Models.Cart", "Cart")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GGus.Web.Models.Product", "Product")
+                        .WithMany("CartProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("GGus.Web.Models.Product", b =>
@@ -199,9 +210,19 @@ namespace GGus.Web.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("GGus.Web.Models.Cart", b =>
+                {
+                    b.Navigation("CartProducts");
+                });
+
             modelBuilder.Entity("GGus.Web.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("GGus.Web.Models.Product", b =>
+                {
+                    b.Navigation("CartProducts");
                 });
 
             modelBuilder.Entity("GGus.Web.Models.User", b =>

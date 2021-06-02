@@ -208,7 +208,7 @@ namespace GGus.Web.Controllers
         public async Task<IActionResult> BestSeller()
         {
 
-            return View(await _context.Product.Where(x=>x.Id % 12 == 1).ToListAsync());
+            return View(await _context.Product.Where(x => x.Id % 12 == 1).ToListAsync());
         }
 
         public async Task<IActionResult> GoodDeals()

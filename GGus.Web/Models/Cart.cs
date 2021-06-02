@@ -15,7 +15,7 @@ namespace GGus.Web.Models
 
         public User User { get; set; }
         
-        public List<Product> Products { get; set; }
+        public List<CartProduct> CartProducts { get; set; }
 
         public double TotalPrice { get; set; } = 0;
 
