@@ -20,7 +20,7 @@ namespace GGus.Web.Models
         public double TotalPrice { get; set; } = 0;
 
 
-        public IList<CartProduct> CartProducts { get; set; }
+        public IList<CartProduct> ProductsList { get; set; }
 
     }
 }
