@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GGus.Web.Controllers
 {
@@ -20,6 +21,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Category.ToListAsync());
@@ -44,6 +46,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +69,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +121,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

@@ -64,8 +64,6 @@ namespace GGus.Web.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(cartProduct);
-                
-
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

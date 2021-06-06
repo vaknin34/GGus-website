@@ -46,6 +46,6 @@ namespace GGus.Web.Models
         [Display(Name = "Publish Date")]
         public DateTime PublishDate { get; set; }
 
-        public List<CartProduct> CartProducts { get; set; }
+        public IList<CartProduct> CartProducts { get; set; }
     }
 }

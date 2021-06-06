@@ -34,9 +34,9 @@ namespace GGus.Web.Models
         [DataType(DataType.PhoneNumber)]
         public int PhoneNumber { get; set; }
 
-        public UserType Type { get; set; } = UserType.Client; 
+        public UserType Type { get; set; } = UserType.Client;
 
-        
-        public Cart Cart { get; set; }
+
+        public Cart Cart { get; set; } = new Cart();
     }
 }

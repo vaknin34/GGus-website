@@ -20,7 +20,6 @@ namespace GGus.Web.Controllers
             _context = context;
         }
 
-
         [Authorize(Roles = "Admin")]
         // GET: Products
         public async Task<IActionResult> Index()
@@ -48,8 +47,8 @@ namespace GGus.Web.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
         [Authorize(Roles = "Admin")]
+        // GET: Products/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
@@ -129,6 +128,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,7 +150,6 @@ namespace GGus.Web.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Product.FindAsync(id);
@@ -175,24 +174,5 @@ namespace GGus.Web.Controllers
             var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
             return View("searchlist", await applicationDbContext.ToListAsync());
         }
-     /*   [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(Product product)
-        {
-            var p = _context.Product.Where(x => x.Id == product.Id).FirstOrDefault();
-            if (p != null)
-            {
-                CartProduct cartProduct = new CartProduct();
-                cartProduct.ProductId = p.Id;
-                cartProduct.CartId = _context.User.Where()
-                return RedirectToAction(nameof(Index), "Home");
-            }
-            else
-            {
-                ViewData["Error"] = "Username and/or password are incorrect.";
-                return View(user);
-            }
-
-        }*/
     }
 }

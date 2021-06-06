@@ -9,17 +9,18 @@ namespace GGus.Web.Models
 {
     public class Cart
     {
-       
+       [Key]
         public int Id { get; set; } 
         public int UserId { get; set; }
 
         public User User { get; set; }
         
-        public List<CartProduct> CartProducts { get; set; }
-
+        [Required]
+        [DataType(DataType.Currency)]
         public double TotalPrice { get; set; } = 0;
 
 
+        public IList<CartProduct> CartProducts { get; set; }
 
     }
 }

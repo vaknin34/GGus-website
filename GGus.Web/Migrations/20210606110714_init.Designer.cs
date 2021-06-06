@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GGus.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210602153956_init")]
+    [Migration("20210606110714_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

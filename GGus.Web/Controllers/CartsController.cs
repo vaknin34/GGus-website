@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GGus.Web.Controllers
 {
@@ -20,6 +21,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Carts
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Cart.Include(c => c.User);
@@ -31,7 +33,6 @@ namespace GGus.Web.Controllers
         {
             if (id == null)
             {
-
                 return NotFound();
             }
 
@@ -47,6 +48,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Carts/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Email");
@@ -124,6 +126,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Carts/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,13 +160,13 @@ namespace GGus.Web.Controllers
         {
             return _context.Cart.Any(e => e.Id == id);
         }
-
         // GET: Carts/Details
         public IActionResult MyCart()
         {
             ViewData["products"] = _context.Product;
             return View();
         }
-    }
 
+       
+    }
 }
