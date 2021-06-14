@@ -174,5 +174,16 @@ namespace GGus.Web.Controllers
             var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
             return View("searchlist", await applicationDbContext.ToListAsync());
         }
+
+        // POST: Products/AddToCart
+        [HttpPost, ActionName("AddToCart")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            var product = await _context.Product.FindAsync(id);
+            _context.Product.Remove(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

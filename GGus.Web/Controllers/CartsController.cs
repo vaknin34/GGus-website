@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GGus.Web.Controllers
 {
@@ -23,9 +24,33 @@ namespace GGus.Web.Controllers
         // GET: Carts
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
-        {
+        {   
             var applicationDbContext = _context.Cart.Include(c => c.User);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+       
+        public async Task<IActionResult> Search(string query)
+        {
+            var userName = User.Identity.Name;
+
+            var user = _context.User.FirstOrDefault(x => x.Username == userName);
+
+            var cart = _context.Cart.FirstOrDefault(c => c.UserId == user.Id);
+
+            List<Product> products = (List<Product>)cart.products.Where(p => p.Name.Contains(query) || p.Details.Contains(query) || query == null);
+            //var userId = _context.Cart.Where(x => x.User.Username == userName);
+
+
+            // var cart = _context.Cart.Where(x => x.UserId = userId);
+            // var applicationDbContext = _context.Cart.Include(x => x.User);
+            return View("Index",  products);
+            //return View();
+        }
+
+        private IActionResult View(string v, object p)
+        {
+            throw new NotImplementedException();
         }
 
         // GET: Carts/Details/5
@@ -161,7 +186,7 @@ namespace GGus.Web.Controllers
             return _context.Cart.Any(e => e.Id == id);
         }
         // GET: Carts/Details
-        public IActionResult MyCart()
+        public ActionResult MyCart()
         {
             ViewData["products"] = _context.Product;
             return View();

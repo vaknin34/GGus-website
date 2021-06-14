@@ -19,8 +19,11 @@ namespace GGus.Web.Models
         [DataType(DataType.Currency)]
         public double TotalPrice { get; set; } = 0;
 
+        public List<Product> products { get; set; }
 
-        public IList<CartProduct> ProductsList { get; set; }
-
+        internal static object Index()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

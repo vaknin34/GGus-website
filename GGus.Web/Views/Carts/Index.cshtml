@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<GGus.Web.Models.Cart>
-
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,6 +8,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Search">
+    <input name="query" placeholder="Enter a value to search" />
+    <input type="submit" value="search" class="btn btn-primary" />
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -18,24 +21,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
-            <th></th>
+            @Html.DisplayNameFor(model => model.products[0].Details)
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
+
+
 </table>

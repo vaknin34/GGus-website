@@ -22,6 +22,5 @@ namespace GGus.Web.Data
 
         public DbSet<GGus.Web.Models.Cart> Cart { get; set; }
 
-        public DbSet<GGus.Web.Models.CartProduct> CartProduct { get; set; }
     }
 }

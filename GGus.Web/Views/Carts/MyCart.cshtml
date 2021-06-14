@@ -6,7 +6,26 @@
     ViewData["Title"] = "My Cart";
 }
 
+
 <h1>My Cart</h1>
-<div>
-    
-</div>
+
+<form asp-action="Search">
+    <input name="query" placeholder="Enter a value to search" />
+   <!-- <input name="currnetUser" type="hidden" value= />-->
+    <input type="submit" value="search" class="btn btn-primary" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+  
+    <tbody>
+</table>

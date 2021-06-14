@@ -181,7 +181,7 @@ namespace GGus.Web.Controllers
                 }
                 else
                 {
-                    ViewData["Error"] = "Unable to comply; Cannot register this user";
+                    ViewData["Error"] = "Unable to compelet; Cannot register this user";
                 }
             }
             return View(user);
@@ -204,12 +204,12 @@ namespace GGus.Web.Controllers
             if (q != null)
             {
                 Signin(q);
-                return RedirectToAction(nameof(Index), "Home");
+                return  RedirectToAction(nameof(Index), "Home");
             }
             else
             {
                 ViewData["Error"] = "Username and/or password are incorrect.";
-                return View(user);
+                return  View(user);
             }
 
         }
