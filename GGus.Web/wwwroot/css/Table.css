@@ -1,0 +1,23 @@
+﻿@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+table.styleTable{
+    color:white;
+    width:fit-content();
+    margin-bottom:1.5em;
+}
+thead.styleThead{
+    position:absolute;
+    clip:rect(1px 1px 1px 1px);
+    padding:0;
+    border:0;
+    height:1px;
+    width:1px;
+    
+}
+td{
+    
+    padding:10px;
+    text-align:left;
+    white-space:normal;
+}
+

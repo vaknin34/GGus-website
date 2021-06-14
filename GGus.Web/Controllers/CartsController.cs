@@ -38,7 +38,7 @@ namespace GGus.Web.Controllers
 
             var cart = _context.Cart.FirstOrDefault(c => c.UserId == user.Id);
 
-            List<Product> products = (List<Product>)cart.products.Where(p => p.Name.Contains(query) || p.Details.Contains(query) || query == null);
+            List<Product> products = (List<Product>)cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query) || query == null);
             //var userId = _context.Cart.Where(x => x.User.Username == userName);
 
 
@@ -192,6 +192,19 @@ namespace GGus.Web.Controllers
             return View();
         }
 
-       
+        [HttpPost, ActionName("AddToCart")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            Product product = _context.Product.FirstOrDefault(x => x.Id == id);
+            String userName = HttpContext.User.Identity.Name;
+            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            if (user.Cart.Products == null)
+                user.Cart.Products = new List<Product>();
+            user.Cart.Products.Add(product);
+            user.Cart.TotalPrice += product.Price;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(MyCart));
+        }
     }
 }

@@ -63,13 +63,13 @@
         </div>
 
         <hr />
-        <div class="btn-group">
-            <a asp-action="AddToCart" asp-area="" class="btn btn-outline-success" style="border-color:white;">
+        <form asp-controller="Carts" asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="btn btn-outline-success" style="border-color:white;">
                 Add To Cart
-            </a>
+            </button>
             <!--<a href="#" class="btn btn-outline-warning" style="border-color:white;">Add To WishList</a>-->
             <a href="/Categories/@Html.DisplayFor(model => model.Category.Name)" class="btn btn-outline-light">Back to Game Category</a>
-        </div>
+        </form>
     </div>
 </div>
 
