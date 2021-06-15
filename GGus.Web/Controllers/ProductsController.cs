@@ -20,14 +20,19 @@ namespace GGus.Web.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Admin")]
         // GET: Products
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Product.Include(p => p.Category);
             return View(await applicationDbContext.ToListAsync());
         }
-
+        //Search Product
+        public async Task<IActionResult> Search(string productName)
+        {
+            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
+            return View("searchlist", await applicationDbContext.ToListAsync());
+        }
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -47,8 +52,8 @@ namespace GGus.Web.Controllers
             return View(product);
         }
 
-        [Authorize(Roles = "Admin")]
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
@@ -94,8 +99,8 @@ namespace GGus.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CompanyName,Price,CategoryId,PhotosUrl1,PhotosUrl2,PhotosUrl3,PhotosUrl4,Details,TrailerUrl,PublishDate")] Product product)
         {
             if (id != product.Id)
@@ -128,7 +133,6 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Products/Delete/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +154,7 @@ namespace GGus.Web.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Product.FindAsync(id);
@@ -162,19 +167,5 @@ namespace GGus.Web.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
-
-        //Search Product
-        public async Task<IActionResult> Search(string productName)
-        {
-            /* var obj = from a in _context.Product.Include(p => p.Category)
-                 where(a.Name.Contains(productName) || a.Details.Contains(productName))
-                 orderby a.Name
-                 select a.Name + " " + a.Price;
-            */
-            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
-            return View("searchlist", await applicationDbContext.ToListAsync());
-        }
-
-       
     }
 }

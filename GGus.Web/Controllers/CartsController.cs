@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 
 namespace GGus.Web.Controllers
 {
@@ -24,13 +23,12 @@ namespace GGus.Web.Controllers
         // GET: Carts
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
-        {   
+        {
             var applicationDbContext = _context.Cart.Include(c => c.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-       
-        public async Task<IActionResult> Search(string query)
+        public IActionResult Search(string query)
         {
             var userName = User.Identity.Name;
 
@@ -39,19 +37,11 @@ namespace GGus.Web.Controllers
             var cart = _context.Cart.FirstOrDefault(c => c.UserId == user.Id);
 
             List<Product> products = (List<Product>)cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query) || query == null);
-            //var userId = _context.Cart.Where(x => x.User.Username == userName);
-
-
-            // var cart = _context.Cart.Where(x => x.UserId = userId);
-            // var applicationDbContext = _context.Cart.Include(x => x.User);
-            return View("Index",  products);
+            
+            return View("Index", products);
             //return View();
         }
 
-        private IActionResult View(string v, object p)
-        {
-            throw new NotImplementedException();
-        }
 
         // GET: Carts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -185,24 +175,59 @@ namespace GGus.Web.Controllers
         {
             return _context.Cart.Any(e => e.Id == id);
         }
-        // GET: Carts/Details
-        public ActionResult MyCart()
+
+        public IActionResult MyCart()
         {
-            ViewData["products"] = _context.Product;
-            return View();
+            String userName = HttpContext.User.Identity.Name;
+           User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
+            cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
+
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            return View(cart);
         }
 
         [HttpPost, ActionName("AddToCart")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id) //product id
         {
             Product product = _context.Product.FirstOrDefault(x => x.Id == id);
             String userName = HttpContext.User.Identity.Name;
             User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
             if (user.Cart.Products == null)
                 user.Cart.Products = new List<Product>();
+            if (product.Carts == null)
+                product.Carts = new List<Cart>();
             user.Cart.Products.Add(product);
+            product.Carts.Add(cart);
             user.Cart.TotalPrice += product.Price;
+            _context.Update(cart);
+            _context.Update(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(MyCart));
+        }
+
+        // POST: Carts/removeProduct/5
+        [HttpPost, ActionName("RemoveProduct")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveProduct(int id)
+        {
+            Product product = _context.Product.FirstOrDefault(x => x.Id == id);
+            String userName = HttpContext.User.Identity.Name;
+            _context.User.FirstOrDefault(x => x.Username.Equals(userName)).Cart.Products.Remove(product);
+            // user.Cart.Products.Remove(product);
+            _context.Product.FirstOrDefault(x => x.Id == id).Carts.Remove(_context.User.FirstOrDefault(x => x.Username.Equals(userName)).Cart);
+            
+           // Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
+          //  cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
+         //   product.Carts = _context.Cart.Where(x => x.Products.Contains(product)).ToList();
+          //  cart.Products.Remove(product);
+          //  product.Carts.Remove(cart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(MyCart));
         }

@@ -5,28 +5,61 @@
 @{
     ViewData["Title"] = "My Cart";
 }
-
+<link rel="stylesheet" href="~/css/Table.css">
 
 <h1>My Cart</h1>
 
 <form asp-action="Search">
     <input name="query" placeholder="Enter a value to search" />
-   <!-- <input name="currnetUser" type="hidden" value= />-->
+    <!-- <input name="currnetUser" type="hidden" value= />-->
     <input type="submit" value="search" class="btn btn-primary" />
 </form>
-<table class="table">
+<table class="table-striped styleTable">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                <p>Products</p>
+            </th>
+            <th>
+                <p>Price</p>
+            </th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    <img src=@item.PhotosUrl1>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+                <td>
+                    <form asp-controller="Carts" asp-action="RemoveProduct" asp-route-id="@item.Id" method="post">
+                        <button type="submit">
+                            Remove Product
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products[0].Details)
+                @Html.DisplayFor(model => model.TotalPrice)
             </th>
         </tr>
     </thead>
-  
-    <tbody>
 
 
 </table>

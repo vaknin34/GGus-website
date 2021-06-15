@@ -1,15 +1,10 @@
 ﻿using GGus.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace GGus.Web.Controllers
+namespace GGus.Controllers
 {
     public class HomeController : Controller
     {
@@ -20,24 +15,19 @@ namespace GGus.Web.Controllers
             _logger = logger;
         }
 
+
+
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-
             return View();
         }
 
         [Authorize]
         public IActionResult MyGames()
         {
-           
+
             return View();
         }
-
         public IActionResult News()
         {
 
@@ -57,13 +47,24 @@ namespace GGus.Web.Controllers
             return View();
         }
 
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
 
         public IActionResult AccessDenined()
         {

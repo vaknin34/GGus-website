@@ -26,6 +26,7 @@ namespace GGus.Web.Controllers
         {
             return View(await _context.Category.ToListAsync());
         }
+      
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -155,6 +156,7 @@ namespace GGus.Web.Controllers
             return _context.Category.Any(e => e.Id == id);
         }
 
+
         public async Task<IActionResult> Action()
         {
 
@@ -233,6 +235,5 @@ namespace GGus.Web.Controllers
 
             return View();
         }
-
     }
 }

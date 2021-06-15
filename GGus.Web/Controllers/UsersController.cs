@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 
 namespace GGus.Web.Controllers
 {
@@ -71,6 +71,7 @@ namespace GGus.Web.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,8 +91,8 @@ namespace GGus.Web.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Email,Age,PhoneNumber,Type")] User user)
         {
             if (id != user.Id)
@@ -121,7 +122,7 @@ namespace GGus.Web.Controllers
             }
             return View(user);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -156,6 +157,7 @@ namespace GGus.Web.Controllers
             return _context.User.Any(e => e.Id == id);
         }
 
+
         public IActionResult Register()
         {
             return View();
@@ -181,7 +183,7 @@ namespace GGus.Web.Controllers
                 }
                 else
                 {
-                    ViewData["Error"] = "Unable to compelet; Cannot register this user";
+                    ViewData["Error"] = "Unable to comply; Cannot register this user";
                 }
             }
             return View(user);
@@ -198,18 +200,18 @@ namespace GGus.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id,Username,Password")] User user)
+        public IActionResult Login([Bind("Id,Username,Password")] User user)
         {
             var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
             if (q != null)
             {
                 Signin(q);
-                return  RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction(nameof(Index), "Home");
             }
             else
             {
                 ViewData["Error"] = "Username and/or password are incorrect.";
-                return  View(user);
+                return View(user);
             }
 
         }
@@ -240,6 +242,5 @@ namespace GGus.Web.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
         }
-
     }
 }
