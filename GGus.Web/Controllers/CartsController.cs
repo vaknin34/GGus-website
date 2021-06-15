@@ -37,7 +37,7 @@ namespace GGus.Web.Controllers
             var cart = _context.Cart.FirstOrDefault(c => c.UserId == user.Id);
 
             List<Product> products = (List<Product>)cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query) || query == null);
-            
+
             return View("Index", products);
             //return View();
         }
@@ -179,7 +179,7 @@ namespace GGus.Web.Controllers
         public IActionResult MyCart()
         {
             String userName = HttpContext.User.Identity.Name;
-           User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
             Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
             cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
 
@@ -219,15 +219,28 @@ namespace GGus.Web.Controllers
         {
             Product product = _context.Product.FirstOrDefault(x => x.Id == id);
             String userName = HttpContext.User.Identity.Name;
-            _context.User.FirstOrDefault(x => x.Username.Equals(userName)).Cart.Products.Remove(product);
-            // user.Cart.Products.Remove(product);
-            _context.Product.FirstOrDefault(x => x.Id == id).Carts.Remove(_context.User.FirstOrDefault(x => x.Username.Equals(userName)).Cart);
-            
-           // Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
-          //  cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
-         //   product.Carts = _context.Cart.Where(x => x.Products.Contains(product)).ToList();
-          //  cart.Products.Remove(product);
-          //  product.Carts.Remove(cart);
+
+            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            Cart cart = _context.Cart.Include(db => db.Products)
+                .FirstOrDefault(x => x.UserId == user.Id);
+
+            if (product != null)
+            {
+                cart.Products.Remove(product);
+                cart.TotalPrice -= product.Price;
+            }
+            //List<Product> cartProducts = _context.Product.Where(x => x.Id != id && x.Carts.Contains(cart)).ToList();
+            //cart.Products = cartProducts;
+
+
+            //cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
+            //product.Carts = _context.Cart.Where(x => !x.Products.Contains(product)).ToList();
+            //cart.Products.Remove(product);
+            //product.Carts.Remove(cart);
+            //_context.Cart.Update(cart);
+            //_context.Product.Update(product);
+            _context.Attach<Cart>(cart);
+            _context.Entry(cart).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(MyCart));
         }
