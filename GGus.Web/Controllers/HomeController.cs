@@ -22,17 +22,7 @@ namespace GGus.Controllers
             return View();
         }
 
-        [Authorize]
-        public IActionResult MyGames()
-        {
-
-            return View();
-        }
-        public IActionResult News()
-        {
-
-            return View();
-        }
+        
 
 
         public IActionResult SupportUs()

@@ -6,12 +6,13 @@
     ViewData["Title"] = "My Cart";
 }
 <link rel="stylesheet" href="~/css/Table.css">
+<script src="~/js/site.js"></script>
 
-<h1>My Cart</h1>
+
+<h1 class="game-title">My Cart</h1>
 
 <form asp-action="Search">
     <input name="query" placeholder="Enter a value to search" />
-    <!-- <input name="currnetUser" type="hidden" value= />-->
     <input type="submit" value="search" class="btn btn-primary" />
 </form>
 <table class="table-striped styleTable">
@@ -60,6 +61,147 @@
             </th>
         </tr>
     </thead>
-
-
 </table>
+
+<button class="btn btn-success" data-toggle="modal" data-target="#pay">Pay Now</button>
+
+<div class="modal" id="pay" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="container" id="payment">
+                    <div class="creditCardInfo">
+                        <form>
+
+                            <div class="cardNumber">
+                                <label>Card Number</label>
+                                <div class="row">
+                                    <input id="number" maxlength="4" type="number" />
+                                    <input id="number" maxlength="4" type="number" />
+                                    <input id="number" maxlength="4" type="number" />
+                                    <input id="number" maxlength="4" type="number" />
+                                </div>
+                                <div class="cardholderName">
+                                    <label for="name">Cardholder Name</label><input id="name" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="details">
+                                <div class="exp">
+                                    <label>Expiry Date</label>
+                                    <div class="row">
+                                        <select id="exp">
+                                            <option>
+                                                ...
+                                            </option>
+                                            <option>
+                                                Jan
+                                            </option>
+                                            <option>
+                                                Feb
+                                            </option>
+                                            <option>
+                                                Mar
+                                            </option>
+                                            <option>
+                                                Apr
+                                            </option>
+                                            <option>
+                                                May
+                                            </option>
+                                            <option>
+                                                Jun
+                                            </option>
+                                            <option>
+                                                Jul
+                                            </option>
+                                            <option>
+                                                Aug
+                                            </option>
+                                            <option>
+                                                Sep
+                                            </option>
+                                            <option>
+                                                Oct
+                                            </option>
+                                            <option>
+                                                Nov
+                                            </option>
+                                            <option>
+                                                Dec
+                                            </option>
+                                        </select><select>
+                                            <option>
+                                                ...
+                                            </option>
+                                            <option>
+                                                2017
+                                            </option>
+                                            <option>
+                                                2018
+                                            </option>
+                                            <option>
+                                                2019
+                                            </option>
+                                            <option>
+                                                2020
+                                            </option>
+                                            <option>
+                                                2021
+                                            </option>
+                                            <option>
+                                                2022
+                                            </option>
+                                            <option>
+                                                2023
+                                            </option>
+                                            <option>
+                                                2024
+                                            </option>
+                                            <option>
+                                                2025
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cvv">
+                                <label>CCV</label>
+                                <div class="row">
+                                    <input id="ccv" maxlength="3" type="number" />
+                                </div>
+                            </div>
+
+                            <div class="submitBtn">
+                                <button data-popup-open="popup-1" type="submit">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="~/css/payment.css">
+
+
+<div class="popup" data-popup="popup-1">
+        <div class="lightbox">
+        </div>
+        <div class="popup-inner">
+            <h3>Payment Recieved</h3>
+            <h1>Thank you for your purchase!</h1>
+            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+        </div>
+    </div>
+
+
+
+
+

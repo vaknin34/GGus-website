@@ -28,7 +28,11 @@
                     </a>
                     <div class="card-footer">
                         <h6 class="text-muted">Price - @item.Price ₪</h6>
-                        <small class="btn btn-danger btn-sm" href="#">add to cart</small>
+                        <form asp-controller="Carts" asp-action="AddToCart" asp-route-id="@item.Id" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm" style="border-color:white;">
+                                Add To Cart
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

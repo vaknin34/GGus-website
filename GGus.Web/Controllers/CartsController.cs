@@ -30,15 +30,22 @@ namespace GGus.Web.Controllers
 
         public IActionResult Search(string query)
         {
-            var userName = User.Identity.Name;
+            String userName = User.Identity.Name;
 
-            var user = _context.User.FirstOrDefault(x => x.Username == userName);
+            User user = _context.User.FirstOrDefault(x => x.Username == userName);
 
-            var cart = _context.Cart.FirstOrDefault(c => c.UserId == user.Id);
+            Cart cart = _context.Cart.Include(db => db.Products)
+                .FirstOrDefault(x => x.UserId == user.Id);
 
-            List<Product> products = (List<Product>)cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query) || query == null);
 
-            return View("Index", products);
+
+            if(query == null)
+                return View("MyCart", cart);
+
+            List<Product> products = cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query)).ToList();
+            cart.Products = products;
+
+            return View("MyCart", cart);
             //return View();
         }
 
@@ -193,22 +200,31 @@ namespace GGus.Web.Controllers
 
         [HttpPost, ActionName("AddToCart")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> AddToCart(int id) //product id
         {
-            Product product = _context.Product.FirstOrDefault(x => x.Id == id);
+            Product product = _context.Product.Include(db => db.Carts).FirstOrDefault(x => x.Id == id);
             String userName = HttpContext.User.Identity.Name;
             User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
-            Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
+            Cart cart = _context.Cart.Include(db => db.Products)
+             .FirstOrDefault(x => x.UserId == user.Id);
+
+
             if (user.Cart.Products == null)
                 user.Cart.Products = new List<Product>();
             if (product.Carts == null)
                 product.Carts = new List<Cart>();
-            user.Cart.Products.Add(product);
-            product.Carts.Add(cart);
-            user.Cart.TotalPrice += product.Price;
-            _context.Update(cart);
-            _context.Update(product);
-            await _context.SaveChangesAsync();
+
+            if (!(cart.Products.Contains(product) && product.Carts.Contains(cart)))
+            {
+
+                user.Cart.Products.Add(product);
+                product.Carts.Add(cart);
+                user.Cart.TotalPrice += product.Price;
+                _context.Update(cart);
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(MyCart));
         }
 
@@ -229,16 +245,7 @@ namespace GGus.Web.Controllers
                 cart.Products.Remove(product);
                 cart.TotalPrice -= product.Price;
             }
-            //List<Product> cartProducts = _context.Product.Where(x => x.Id != id && x.Carts.Contains(cart)).ToList();
-            //cart.Products = cartProducts;
-
-
-            //cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
-            //product.Carts = _context.Cart.Where(x => !x.Products.Contains(product)).ToList();
-            //cart.Products.Remove(product);
-            //product.Carts.Remove(cart);
-            //_context.Cart.Update(cart);
-            //_context.Product.Update(product);
+         
             _context.Attach<Cart>(cart);
             _context.Entry(cart).State = EntityState.Modified;
             await _context.SaveChangesAsync();
