@@ -26,13 +26,6 @@
     }
 }
 
-.container#payment {
-    animation-name: bounceInDown;
-    -webkit-animation-duration: 1.0s;
-    animation-duration: 1.0s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
 
 .creditCardInfo {
     position: absolute;
@@ -43,15 +36,12 @@
     margin: auto;
 }
 
-* {
-    font-family: Roboto;
-}
-/*
+
 body {
     height: 100vh;
     color: #fff;
     overflow: hidden;
-}*/
+}
 
 .container#payment {
     background-color: #c02034;
@@ -62,6 +52,11 @@ body {
     -moz-box-shadow: 5px 4px 12px 0px rgba(0,0,0,0.48);
     box-shadow: 5px 4px 12px 0px rgba(0,0,0,0.48);
     position: relative;
+    animation-name: bounceInDown;
+    -webkit-animation-duration: 1.0s;
+    animation-duration: 1.0s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 .label {
@@ -97,8 +92,8 @@ input {
     padding: 16px;
     min-height: 240px;
 }
-/*
-.row {
+
+.sami {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -106,7 +101,7 @@ input {
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-}*/
+}
 
 .credit-card {
     display: -webkit-box;
@@ -182,21 +177,6 @@ input, select {
 option {
     background: rgba(0, 0, 0, 0.5);
 }
-/*
-button {
-    margin-top: 7%;
-    margin-left: 35%;
-    text-align: center;
-    width: 40%;
-    height: 60%;
-    border-radius: 4px 4px 4px 4px;
-    background-color:
-}*/
-
-/*    button:hover {
-        cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.18);
-    }*/
 
 /* Outer */
 .popup {
@@ -206,7 +186,7 @@ button {
     position: fixed;
     top: 0px;
     left: 0px;
-    background: background-color: rgba(255, 255, 255, 0.18);
+    background-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Inner */
