@@ -71,7 +71,7 @@
                 <div class="cardholderName">
                     <label>Card Number</label>
                     <div class="cardholderName">
-                        <input id="name" type="number" />
+                        <input id="name" type="number" min="1000000000000000" max="9999999999999999"/>
                     </div>
                     <div class="cardholderName">
                         <label>Cardholder Name</label>
@@ -160,7 +160,7 @@
                         <input id="ccv" type="number" />
                     </div>
                 </div>
-
+                <hr />
                 <div class="submitBtn">
                     <button class="btn btn-success" data-popup-open="popup-1" type="submit" >Submit</button>
                 </div>
@@ -177,7 +177,8 @@
     <div class="popup-inner">
         <h3>Payment Recieved</h3>
         <h1>Thank you for your purchase!</h1>
-        <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+        <hr />
+        <a class="btn btn-dark" href="/Home/index">Back to Home Page</a>
     </div>
 </div>
 

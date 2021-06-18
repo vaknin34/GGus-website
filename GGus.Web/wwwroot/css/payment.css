@@ -40,13 +40,12 @@
 body {
     height: 100vh;
     color: #fff;
-    overflow: hidden;
 }
 
 .container#payment {
-    background-color: #c02034;
+    background-color: #5e8d98;
     width: 325px;
-    height: 330px;
+    height: 400px;
     margin: 2% auto 0 auto;
     -webkit-box-shadow: 5px 4px 12px 0px rgba(0,0,0,0.48);
     -moz-box-shadow: 5px 4px 12px 0px rgba(0,0,0,0.48);
@@ -57,6 +56,7 @@ body {
     animation-duration: 1.0s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+    border:none;
 }
 
 .label {
@@ -70,9 +70,6 @@ body {
     margin-top: 5%;
 }
 
-input {
-    width: 15%;
-}
 
 .cardNumber input {
     width: 35px;
@@ -163,7 +160,7 @@ input {
 input, select, fieldset, button {
     border: none;
     outline: none;
-    font: 16px Roboto;
+    font: 16px;
 }
 
 input, select {
@@ -186,7 +183,8 @@ option {
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: rgba(255, 255, 255, 0.18);
+    background-color: #5e8d98;
+    z-index: 9999;
 }
 
 /* Inner */
@@ -201,7 +199,7 @@ option {
     transform: translate(-50%, -50%);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     border-radius: 3px;
-    background: #c02034;
+    background: #5e8d98;
 }
 
 /* Close Button */

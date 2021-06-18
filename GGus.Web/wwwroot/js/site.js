@@ -19,5 +19,6 @@ $(function () {
         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
 
         e.preventDefault();
+        //window.location.href = "/Home/index.cshtml";
     });
 });
