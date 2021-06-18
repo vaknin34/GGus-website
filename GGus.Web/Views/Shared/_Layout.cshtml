@@ -13,6 +13,7 @@
     <link href="~/css/oursite.css" rel="stylesheet">
     <link href="~/css/login.css" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -85,8 +86,14 @@
                         <a class="btn" data-toggle="modal" data-target="#supportus">Support Us</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Home/VisitUs" class="btn" >Visit Us</a>
+                        <a href="/Home/VisitUs" class="btn">Visit Us</a>
                     </li>
+                    <li class="nav-item">
+                        <div id="fb-root"></div>
+                        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v11.0&appId=1163597744152928&autoLogAppEvents=1" nonce="jsD1P6RC"></script>
+                        <div class="fb-share-button" data-href="https://www.linkpicture.com/q/GGus.jpg" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">S</a></div>
+                    </li>
+
                 </ul>
                 <form class="d-flex" asp-controller="Products" asp-action="Search">
                     <input class="form-control me-2 col-12 offset-10" type="search" placeholder="Search" aria-label="Search" name="productName" />
