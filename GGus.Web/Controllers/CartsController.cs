@@ -251,5 +251,21 @@ namespace GGus.Web.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(MyCart));
         }
+
+        [Authorize]
+        public async Task<IActionResult> AfterPayment()
+        {
+            String userName = HttpContext.User.Identity.Name;
+            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
+
+            int i = cart.Products.RemoveAll(p => p.Id == p.Id);
+            cart.TotalPrice = 0;
+            
+            _context.Attach<Cart>(cart);
+            _context.Entry(cart).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return View();
+        }
     }
 }

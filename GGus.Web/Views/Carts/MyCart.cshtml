@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="~/css/Table.css">
 <link rel="stylesheet" href="~/css/payment.css">
 
-<script src="~/js/site.js"></script>
 
 
 <h1 class="game-title">My Cart</h1>
@@ -71,11 +70,12 @@
                 <div class="cardholderName">
                     <label>Card Number</label>
                     <div class="cardholderName">
-                        <input id="name" type="number" min="1000000000000000" max="9999999999999999"/>
+                        <input id="CardNumber" type="number" required min="1000000000000000" max="9999999999999999" />
                     </div>
+                    <div name="validation"></div>
                     <div class="cardholderName">
                         <label>Cardholder Name</label>
-                        <input id="name" type="text" />
+                        <input id="CardHolder" type="text" required min="1" max="16"/>
                     </div>
                 </div>
 
@@ -123,9 +123,6 @@
                             </select>
                             <select>
                                 <option>
-                                    2021
-                                </option>
-                                <option>
                                     2022
                                 </option>
                                 <option>
@@ -157,32 +154,16 @@
                 <div class="cvv">
                     <label>CCV</label>
                     <div id="sami">
-                        <input id="ccv" type="number" />
+                        <input id="ccv" type="number" required min="100" max="999"/>
                     </div>
                 </div>
                 <hr />
                 <div class="submitBtn">
-                    <button class="btn btn-success" data-popup-open="popup-1" type="submit" >Submit</button>
+                    <input class="btn btn-success" type="submit" asp-controller="Carts" asp-action="AfterPayment"/>
                 </div>
-
             </form>
         </div>
     </div>
 </div>
-
-
-<div class="popup" data-popup="popup-1">
-    <div class="lightbox">
-    </div>
-    <div class="popup-inner">
-        <h3>Payment Recieved</h3>
-        <h1>Thank you for your purchase!</h1>
-        <hr />
-        <a class="btn btn-dark" href="/Home/index">Back to Home Page</a>
-    </div>
-</div>
-
-
-
 
 
