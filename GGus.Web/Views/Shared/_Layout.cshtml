@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <!--  <link rel="stylesheet" href="~/css/site.css" />-->
+    <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/oursite.css" rel="stylesheet">
     <link href="~/css/login.css" rel="stylesheet">
 
@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    @RenderSection("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

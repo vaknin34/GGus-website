@@ -6,9 +6,15 @@
 <link rel="stylesheet" href="~/css/Table.css">
 <h1 class="font-weight-lighter text-light">Products Index</h1>
 
+<form asp-action="Search">
+    <input name="query" id="query" placeholder="Enter a value to search" autocomplete="off"/>
+    <input type="submit" value="search" class="btn btn-primary" />
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
     <table class="table-striped styleTable">
         <thead >
             <tr>

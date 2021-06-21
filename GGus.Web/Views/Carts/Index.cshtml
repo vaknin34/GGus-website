@@ -17,16 +17,19 @@
     <thead>
         <tr>
             <th>
-                Cart Id  |
+                <p>Cart Id  |</p>
             </th>
             <th>
-                User Id  |
+                <p>User Name |</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
+                <p>Total Price | </p>
             </th>
             <th>
-                Products
+                <p>Products |</p>
+            </th>
+            <th>
+                <p>Number of Products</p>
             </th>
             <th></th>
 
@@ -40,13 +43,17 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Products[0].Name)
+                @foreach(var i in item.Products) { 
+                    @Html.DisplayFor(modelItem => i.Name) <br/>}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Products.Count)
             </td>
 
             <td>

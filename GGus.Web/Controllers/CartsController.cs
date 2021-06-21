@@ -24,8 +24,13 @@ namespace GGus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products);
-            return View(await applicationDbContext.ToListAsync());
+
+            List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
+
+            foreach (Cart cart in applicationDbContext) {
+                cart.User = _context.User.FirstOrDefault(u => u.Id == cart.Id);
+            }
+            return View(applicationDbContext);
         }
 
         public IActionResult Search(string query)
@@ -50,12 +55,38 @@ namespace GGus.Web.Controllers
 
         public IActionResult SearchCart(string query)
         {
-            int id = Int32.Parse(query);
-            if (query == null)
-                return View();
+            int numericValue;
+            bool isNumber = int.TryParse(query, out numericValue);
+            if (query == null || isNumber== false)
+            {
+                List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
 
+                foreach (Cart c in applicationDbContext)
+                {
+                    c.User = _context.User.FirstOrDefault(u => u.Id == c.Id);
+                }
+                return View("Index", applicationDbContext);
+            }
+            int id = Int32.Parse(query);
 
             Cart cart = _context.Cart.FirstOrDefault(x => x.Id == id);
+
+
+            if (cart == null)
+            {
+                List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
+
+                foreach (Cart c in applicationDbContext)
+                {
+                    c.User = _context.User.FirstOrDefault(u => u.Id == c.Id);
+                }
+                return View("Index", applicationDbContext);
+            }
+
+            cart.User = _context.User.FirstOrDefault(u => u.Id == cart.Id);
+            cart.Products = _context.Product.Where(p => p.Carts.Contains(cart)).ToList();
+           
+
             return View("MyCart", cart);
         }
 
