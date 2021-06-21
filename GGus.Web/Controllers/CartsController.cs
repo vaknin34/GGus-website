@@ -24,7 +24,7 @@ namespace GGus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Cart.Include(c => c.User);
+            var applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -46,7 +46,17 @@ namespace GGus.Web.Controllers
             cart.Products = products;
 
             return View("MyCart", cart);
-            //return View();
+        }
+
+        public IActionResult SearchCart(string query)
+        {
+            int id = Int32.Parse(query);
+            if (query == null)
+                return View();
+
+
+            Cart cart = _context.Cart.FirstOrDefault(x => x.Id == id);
+            return View("MyCart", cart);
         }
 
 
