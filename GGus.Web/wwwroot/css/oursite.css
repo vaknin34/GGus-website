@@ -1,9 +1,9 @@
 body {
     background-color: #334554;
     overflow-x: hidden;
-    overflow-y:scroll;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
 }
-
 .btn {
     color: white;
     bottom: 0;
@@ -102,20 +102,35 @@ div.container {
 }
 
 .carousel-pad {
-    padding: 0px 0px 60px 200px;
-    width: 70%;
+    padding: 10px 10px 60px 10px;
+}
+
+#cid {
+    padding: 10px 50px 0px 300px;
+}
+.asideStyle {
     float:left;
+    padding:0px 50px 0px 30px;
+}
+.choiceStyle {
+    width:200px;
 }
 
-aside{
-    float:right;
-    padding: 0px 0px 0px 20px;
+.weather {
+    overflow: hidden;
+    border: 0;
+    margin-left: 25%;
+    width: 120px;
+    height: 80px;
+    pointer-events: none;
+    cursor: default;
+    border-radius: 30px;
 }
 
-
-
-carousel-inner {
-    border-radius:25px;
+.formStyle {
+    padding: 10px 10px 10px 10px;
+    background-color: #3f5061;
+    border-radius: 10px;
 }
 
 

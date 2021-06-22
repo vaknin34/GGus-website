@@ -36,9 +36,10 @@ namespace GGus.Web.Controllers
 
 
         //Search Product
-        public async Task<IActionResult> Search(string productName)
+        public async Task<IActionResult> Search(string productName, string price, string category)
         {
-            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName));
+            int p = Int32.Parse(price);
+            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName) && a.Category.Name.Equals(category) && a.Price<=p);
             return View("searchlist", await applicationDbContext.ToListAsync());
         }
         // GET: Products/Details/5
