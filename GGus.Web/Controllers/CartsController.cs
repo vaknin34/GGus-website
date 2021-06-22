@@ -32,7 +32,7 @@ namespace GGus.Web.Controllers
             }
             return View(applicationDbContext);
         }
-
+        [Authorize]
         public IActionResult Search(string query)
         {
             String userName = User.Identity.Name;
@@ -52,42 +52,18 @@ namespace GGus.Web.Controllers
 
             return View("MyCart", cart);
         }
-
-        public IActionResult SearchCart(string query)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SearchCart(string query)
         {
-            int numericValue;
-            bool isNumber = int.TryParse(query, out numericValue);
-            if (query == null || isNumber== false)
+
+            List<Cart> carts = _context.Cart.Where(c => c.User.Username.Contains(query)).Include(p => p.Products).ToList();
+
+            foreach (Cart c in carts)
             {
-                List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
-
-                foreach (Cart c in applicationDbContext)
-                {
-                    c.User = _context.User.FirstOrDefault(u => u.Id == c.Id);
-                }
-                return View("Index", applicationDbContext);
-            }
-            int id = Int32.Parse(query);
-
-            Cart cart = _context.Cart.FirstOrDefault(x => x.Id == id);
-
-
-            if (cart == null)
-            {
-                List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
-
-                foreach (Cart c in applicationDbContext)
-                {
-                    c.User = _context.User.FirstOrDefault(u => u.Id == c.Id);
-                }
-                return View("Index", applicationDbContext);
+                c.User = _context.User.FirstOrDefault(u => u.Id == c.UserId);
             }
 
-            cart.User = _context.User.FirstOrDefault(u => u.Id == cart.Id);
-            cart.Products = _context.Product.Where(p => p.Carts.Contains(cart)).ToList();
-           
-
-            return View("MyCart", cart);
+            return PartialView(carts);
         }
 
 

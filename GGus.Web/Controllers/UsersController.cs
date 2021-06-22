@@ -29,6 +29,13 @@ namespace GGus.Web.Controllers
         {
             return View(await _context.User.ToListAsync());
         }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Search(string query)
+        {
+            return PartialView(await _context.User.Where(u => u.Username.Contains(query)).ToListAsync());
+        }
+
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/css/Table.css">
 <h1 class="font-weight-lighter text-light">Products Index</h1>
 
-<form asp-action="Search">
+<form asp-action="SearchPtable">
     <input name="query" id="query" placeholder="Enter a value to search" autocomplete="off"/>
     <input type="submit" value="search" class="btn btn-primary" />
 </form>
@@ -63,3 +63,7 @@
             }
         </tbody>
     </table>
+
+@section Scripts{
+  <script src ="~/js/SearchProducts.js"></script>
+}

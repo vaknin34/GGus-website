@@ -27,6 +27,14 @@ namespace GGus.Web.Controllers
             var applicationDbContext = _context.Product.Include(p => p.Category);
             return View(await applicationDbContext.ToListAsync());
         }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SearchPtable(string query)
+        {
+            var applicationDbContext = _context.Product.Include(p => p.Category);
+            return PartialView(await applicationDbContext.Where(p => p.Name.Contains(query)).ToListAsync());
+        }
+
+
         //Search Product
         public async Task<IActionResult> Search(string productName)
         {

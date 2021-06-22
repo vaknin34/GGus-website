@@ -6,6 +6,14 @@
 
 <h1>Index</h1>
 
+<form asp-action="Search">
+    <input name="query" id="query" autocomplete="off"/>
+    <input type="submit" class="btn btn-dark"/>
+</form>
+
+
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -63,3 +71,13 @@
 }
     </tbody>
 </table>
+
+
+
+@section Scripts{ 
+
+<script src="~/js/SearchUser.js"></script>
+
+} 
+
+
