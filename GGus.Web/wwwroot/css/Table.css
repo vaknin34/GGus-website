@@ -1,9 +1,10 @@
 ﻿@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 
-table.styleTable{
-    color:white;
-    width:fit-content();
-    margin-bottom:1.5em;
+table.styleTable {
+    color: white;
+    width: fit-content();
+    margin-bottom: 1.5em;
+    padding: 25px 50px 75px 100px;
 }
 thead.styleThead{
     position:absolute;
@@ -14,10 +15,16 @@ thead.styleThead{
     width:1px;
     
 }
-td{
+th,td{
     
     padding:10px;
     text-align:left;
     white-space:normal;
 }
-
+.styleInput{
+  border-radius:15px;  
+}
+.style-two {
+    border: 0;
+    height: 1px;
+}
