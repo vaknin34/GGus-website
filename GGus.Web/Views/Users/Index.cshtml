@@ -4,20 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1 class="font-weight-lighter text-light">Users Index</h1>
+<br />
 <form asp-action="Search">
-    <input name="query" id="query" autocomplete="off"/>
-    <input type="submit" class="btn btn-dark"/>
+    <input name="query" id="query" placeholder="Enter a value to search" autocomplete="off" />
+    <input type="submit" value="search" class="btn btn-secondary" />
 </form>
-
-
-
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<br />
+<table class="table-striped styleTable">
     <thead>
         <tr>
             <th>
@@ -42,42 +36,49 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
 
+<p>
+    <button class="btn btn-outline-light" asp-action="Create">Create New</button>
+</p>
 
-@section Scripts{ 
 
-<script src="~/js/SearchUser.js"></script>
+@section Scripts{
 
-} 
+    <script src="~/js/SearchUser.js"></script>
+
+}
 
 

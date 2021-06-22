@@ -3,43 +3,52 @@
 @{
     ViewData["Title"] = "Index";
 }
+    
+        <h1 class="font-weight-lighter text-light">Category Index</h1>
+        <br />
+        <form asp-action="Search">
+            <input class="styleInput" name="query" id="query" placeholder="Enter a value to search" autocomplete="off" />
+            <input type="submit" value="search" class="btn btn-secondary" />
+        </form>
+    <br />
+    <table class="table-striped styleTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
 
-<link rel="stylesheet" href="~/css/Table.css">
-<h1 class="font-weight-lighter text-light">Category Index</h1>
-
-<form asp-action="Search">
-    <input name="query" id="query" autocomplete="off" />
-    <input type="submit" />
-</form>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button class="btn btn-outline-light" asp-action="Create">Create New</button>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 @section Scripts{
 
