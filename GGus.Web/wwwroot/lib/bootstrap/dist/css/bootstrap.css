@@ -50,6 +50,7 @@ html {
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
+  inline-size :70%;
 }
 
 body {

@@ -39,8 +39,7 @@ namespace GGus.Web.Controllers
 
             User user = _context.User.FirstOrDefault(x => x.Username == userName);
 
-            Cart cart = _context.Cart.Include(db => db.Products)
-                .FirstOrDefault(x => x.UserId == user.Id);
+            Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
 
 
 

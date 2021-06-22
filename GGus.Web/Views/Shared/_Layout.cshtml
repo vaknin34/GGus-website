@@ -9,11 +9,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/css/oursite.css" rel="stylesheet">
-    <link href="~/css/login.css" rel="stylesheet">
-
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="AccessDenined.css">
+    <link href="~/css/oursite.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
+    <link href="~/css/Table.css" rel="stylesheet" />
+    <link href="~/css/payment.css" rel="stylesheet" />
+    <link href="~/css/cards.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -88,17 +91,17 @@
                     </li>
                     @if (Context.User.IsInRole("Admin"))
                     {
-                <li class="nav-item dropdown">
-                    <a class="btn dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-                        Admin Actions
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="\Categories\Index">Categories</a></li>
-                        <li><a class="dropdown-item" href="\Products\Index">Products</a></li>
-                        <li><a class="dropdown-item" href="\Carts\Index">Carts</a></li>
-                        <li><a class="dropdown-item" href="\Users\Index">Users</a></li>
-                    </ul>
-                </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                Admin Actions
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="\Categories\Index">Categories</a></li>
+                                <li><a class="dropdown-item" href="\Products\Index">Products</a></li>
+                                <li><a class="dropdown-item" href="\Carts\Index">Carts</a></li>
+                                <li><a class="dropdown-item" href="\Users\Index">Users</a></li>
+                            </ul>
+                        </li>
                     }
                     <li class="nav-item">
                         <div id="fb-root"></div>
@@ -107,10 +110,9 @@
                     </li>
 
                 </ul>
-                <form class="d-flex" asp-controller="Products" asp-action="Search">
-                    <input class="form-control me-2 col-12 offset-10" type="search" placeholder="Search" aria-label="Search" name="productName" />
-                    <input class="btn btn-dark searchStyle" type="submit" value="Search" />
-                </form>
+
+                <iframe class="col-md-2 " scrolling="no" clocktype="html5" style="overflow:hidden;border:0;margin-left:25%;width:120px;height:80px;pointer-events: none; cursor: default;" src="https://www.clocklink.com/html5embed.php?clock=044&timezone=IST&color=white&size=450&Title=&Message=&Target=&From=2021,1,1,0,0,0&Color=white"></iframe>
+
             </div>
         </div>
     </nav>

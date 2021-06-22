@@ -50,25 +50,10 @@ div.container {
     text-align: center;
 }
 
-/*
-div.container1 {
-    margin-left: 0%;
-    border-color: white;
-    border-style: solid;
-    height: 60%;
-    width: 100%;
-    position:relative;
-    left: 0px;
-    overflow: hidden;
-}
 
-.master-container {
-    -ms-overflow-style: none;
-}*/
-
-.carousel{
-    height:70%;
-    z-index:auto;
+.carousel {
+    height: 70%;
+    z-index: auto;
 }
 
 .d-block {
@@ -99,7 +84,7 @@ div.container1 {
 
 /* Container for image text */
 .caption-container {
-    text-align: center;
+    text-align: left;
     background-color: #222;
     color: white;
     padding: 2px 16px;
@@ -117,14 +102,20 @@ div.container1 {
 }
 
 .carousel-pad {
-    padding: 0px 0px 60px 0px;
-    width:70%;
+    padding: 0px 0px 60px 200px;
+    width: 70%;
+    float:left;
+}
+
+aside{
+    float:right;
+    padding: 0px 0px 0px 20px;
 }
 
 
 
-
-
-
+carousel-inner {
+    border-radius:25px;
+}
 
 
