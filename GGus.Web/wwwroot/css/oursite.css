@@ -133,4 +133,23 @@ div.container {
     border-radius: 10px;
 }
 
+canvas#myCanvas{
+        width:350px;
+        height:80px;
+}
 
+video#myVid {
+    width: 500px;
+    height: 300px;
+    border:none;
+}
+
+.modal-body{
+    background-color:black;
+    color:white;
+}
+
+.modal-content {
+    background-color: black;
+    color: white;
+}
