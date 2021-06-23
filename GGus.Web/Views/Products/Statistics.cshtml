@@ -80,3 +80,99 @@
 </p>
 
 
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div>
+    <div id="container1" class="graph2"></div>
+
+    <br />
+    <br />
+    <br />
+    <table id="datatable1" class="datatable1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Age</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var v in ViewBag.data2 as ICollection<Stat>)
+            {
+                <tr>
+                    <th>@v.Key</th>
+                    <th>@v.Values</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        Highcharts.chart('container1', {
+            data: {
+                table: 'datatable1'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Who is the most popular Age'
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'number of Current User age'
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/><br/>' +
+                        this.point.y + ' '+ this.point.name.toLowerCase();
+                }
+            }
+
+        });
+    </script>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

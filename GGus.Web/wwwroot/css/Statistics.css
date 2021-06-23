@@ -7,3 +7,17 @@
 table.datatable {
     display:none;
 }
+
+
+
+
+div.graph2 {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+    width: 600px;
+}
+
+table.datatable1 {
+    display: none;
+}
