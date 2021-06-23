@@ -1,0 +1,9 @@
+﻿div.graph1 {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+    width:600px;
+}
+table.datatable {
+    display:none;
+}

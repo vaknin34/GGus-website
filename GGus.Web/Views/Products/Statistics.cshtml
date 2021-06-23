@@ -16,12 +16,12 @@
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="container" class="graph1"></div>
 
     <br />
     <br />
     <br />
-    <table id="datatable" style="display:none">
+    <table id="datatable" class="datatable">
         <thead>
             <tr>
                 <th></th>
@@ -34,7 +34,7 @@
             @foreach (var v in ViewBag.data as ICollection<Stat>)
             {
                 <tr>
-                    <th> @v.Key</th>
+                    <th>@v.Key</th>
                     <th>@v.Values</th>
                 </tr>
             }
@@ -79,67 +79,4 @@
 
 </p>
 
-<table id="datatable2" style="display:none">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Age</th>
 
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var v in ViewBag.data2 as ICollection<Stat>)
-        {
-            <tr>
-                <th> @v.Key</th>
-                <th>@v.Values</th>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-<div>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-
-    <div id="container2" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
-
-
-
-    <script>
-        Highcharts.chart('container2', {
-            data: {
-                table: 'datatable2'
-            },
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: 'Which Age is the most common among our users'
-            },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}: {point.percentage:.1f} %'
-                    }
-                }
-
-            },
-
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                }
-            
-        });
-
-
-
-    </script>
-
-</div>

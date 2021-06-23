@@ -208,7 +208,9 @@ namespace GGus.Web.Controllers
                 }
                 else
                 {
-                    result2.Add(currentYear - item.Age.Year, result2.GetValueOrDefault(currentYear - item.Age.Year) + 1);
+                    int count = result2.GetValueOrDefault(currentYear - item.Age.Year) + 1;
+                    result2.Remove(currentYear - item.Age.Year);
+                    result2.Add(currentYear - item.Age.Year,count);
                 }
 
             }
