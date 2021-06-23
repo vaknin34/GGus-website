@@ -40,7 +40,7 @@ namespace GGus.Web.Controllers
         public async Task<IActionResult> Search(string productName, string price, string category)
         {
             int p = Int32.Parse(price);
-            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName) && a.Category.Name.Equals(category) && a.Price<=p);
+            var applicationDbContext = _context.Product.Include(a => a.Category).Where(a => a.Name.Contains(productName) && a.Category.Name.Equals(category) && a.Price <= p);
             return View("searchlist", await applicationDbContext.ToListAsync());
         }
         // GET: Products/Details/5
@@ -193,57 +193,52 @@ namespace GGus.Web.Controllers
             }
 
             ViewBag.data = statistic1;
-            return View();
-        }
 
-
-        //finish first statistic
-        //statistic 2-what is the most common age of the users
-        /*    ICollection<Stat> statistic2 = new Collection<Stat>();
-
-            int Count;
-            var result2 = (from p in _context.User where 1 < 0 select new Stat2("",0)).ToList();//create empty result table
-            foreach (var pro in _context.User.Include(po => po.Age))
+            //finish first statistic
+            //statistic 2-what is the most common age of the users
+            ICollection<Stat> statistic2 = new Collection<Stat>();
+            List<User> users = _context.User.ToList();
+            int currentYear = DateTime.Today.Year;
+            Dictionary<int, int> result2 = new Dictionary<int, int>();
+            foreach (User item in users)
             {
-                Count = 0;
-                if (pro == null)
-                    continue;
-                foreach (var p. in pro.Age)
+                if (!result2.ContainsKey(currentYear - item.Age.Year))
                 {
-                    if (po == null)
-                        continue;
-                    if (po.Equals(pro.Age.Year.ToString()))
-                        ++Count;
+                    result2.Add(currentYear - item.Age.Year, 1);
                 }
-                result2.Add( new Stat2( pro.Age.Year.ToString(), Count));
+                else
+                {
+                    result2.Add(currentYear - item.Age.Year, result2.GetValueOrDefault(currentYear - item.Age.Year) + 1);
+                }
+
             }
             foreach (var v in result2)
             {
-                if (v.count > 0)
-                    statistic2.Add(new Stat(v.year, v.count));
+                if (v.Value > 0)
+                {
+                    statistic2.Add(new Stat(v.Key.ToString(), v.Value));
+                }
             }
 
             ViewBag.data2 = statistic2;
 
             return View();
         }
-        }
 
-
-    }*/
     }
+
 }
 
-        public class Stat
-{
-    public string Key;
-    public int Values;
-    public Stat(string key, int values)
+    public class Stat
     {
-        Key = key;
-        Values = values;
+        public string Key;
+        public int Values;
+        public Stat(string key, int values)
+        {
+            Key = key;
+            Values = values;
+        }
     }
-}
    
 
 
