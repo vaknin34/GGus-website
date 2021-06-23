@@ -25,32 +25,32 @@
         <div class="nav-item container-fluid col-11 offset-10">
             @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
             {
-            <p class="nav-link text-light">
-                Hello @Context.User.Identity.Name   |
+                <p class="nav-link text-light">
+                    Hello @Context.User.Identity.Name   |
 
-                <a class="btn-link text-light shopping-cart-button" asp-action="MyCart" asp-controller="Carts" asp-area="">
-                    <span class="fa fa-shopping-cart"></span>
-                    <span class="text"> Cart </span>
-                </a> |
-                <a class="btn-link text-light" asp-action="LogOut" asp-controller="Users" asp-area="">LogOut</a>
-            </p>
+                    <a class="btn-link text-light shopping-cart-button" asp-action="MyCart" asp-controller="Carts" asp-area="">
+                        <span class="fa fa-shopping-cart"></span>
+                        <span class="text"> Cart </span>
+                    </a> |
+                    <a class="btn-link text-light" asp-action="LogOut" asp-controller="Users" asp-area="">LogOut</a>
+                </p>
 
-        }
-        else
-        {
-            <p class="nav-link text-light">
-                <a class="btn-link text-light" asp-action="LogIn" asp-controller="Users" asp-area="">Login</a> |
-                <a class="btn-link text-light" asp-action="Register" asp-controller="Users" asp-area="">Register</a>
-            </p>
-        }
+            }
+            else
+            {
+                <p class="nav-link text-light">
+                    <a class="btn-link text-light" asp-action="LogIn" asp-controller="Users" asp-area="">Login</a> |
+                    <a class="btn-link text-light" asp-action="Register" asp-controller="Users" asp-area="">Register</a>
+                </p>
+            }
 
-            </div>
+        </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
 
-        </header>
+    </header>
     <!--second navbar - logo+buttons-->
 
     <nav class="navbar navbar-expand-lg">
@@ -142,16 +142,30 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body text-dark">
-                    <p class="game-title"> Developers :</p>
+                <div class="modal-body">
+                    <p>Developers :</p>
                     <p>Eynav Ptia - EynavPere@gmail.com</p>
                     <p>Koral Duel - Koraduel2113@gmail.com</p>
                     <p>Niv Vaknin - Nivos123@gmail.com</p>
                     <p>Samuel Krief - SamiAcabai@gmail.com</p>
+
+                    <canvas id="myCanvas">
+                    </canvas>
+                    <script>
+                        var c = document.getElementById("myCanvas");
+                        var ctx = c.getContext("2d");
+                        ctx.font = "30px David";
+                        ctx.fillText("Thanks for supporting Us", 10, 50);
+                    </script>
                 </div>
+                <video controls autoplay muted id="myVid">
+                    <source src="~/images/pictures/video.mp4" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                </video>
             </div>
         </div>
     </div>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 
