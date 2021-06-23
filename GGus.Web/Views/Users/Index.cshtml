@@ -6,9 +6,19 @@
 
 <h1 class="font-weight-lighter text-light">Users Index</h1>
 <br />
+
 <form asp-action="Search">
-    <input name="query" id="query" placeholder="Enter a value to search" autocomplete="off" />
-    <input type="submit" value="search" class="btn btn-secondary" />
+    <label class="text-light" for="User Name">User Name :</label>
+    <input type="text" id="Username" name="Username" required  min="1">
+    <label class="text-light" for="Type">Type :</label>
+    <select name="role" id="role">
+        <option value="Admin">Admin </option>
+        <option value="Client">Client </option>
+    </select>
+    <label class="text-light" for="YearofBirth">Year of Birth :</label>
+    <input type="number" min="1950" max="2021" step="1" name="YearofBirth" id="YearofBirth"  required/>
+    <br /><br />
+    <button type="submit" value="Search" class="btn btn-dark">Search</button>
 </form>
 <br />
 <table class="table-striped styleTable">
@@ -75,10 +85,6 @@
 </p>
 
 
-@section Scripts{
 
-    <script src="~/js/SearchUser.js"></script>
-
-}
 
 

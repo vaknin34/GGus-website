@@ -1,30 +1,90 @@
 ﻿@model IEnumerable<GGus.Web.Models.User>
 
-
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@{
+    ViewData["Title"] = "Index";
 }
+
+<h1 class="font-weight-lighter text-light">Users Index</h1>
+<br />
+
+<form asp-action="Search">
+    <label class="text-light" for="User Name">User Name :</label>
+    <input type="text" id="Username" name="Username" required min="1">
+    <label class="text-light" for="Type">Type :</label>
+    <select name="role" id="role">
+        <option value="Admin">Admin </option>
+        <option value="Client">Client </option>
+    </select>
+    <label class="text-light" for="YearofBirth">Year of Birth :</label>
+    <input type="number" min="1950" max="2021" step="1" name="YearofBirth" id="YearofBirth" required />
+    <br /><br />
+    <button type="submit" value="Search" class="btn btn-dark">Search</button>
+</form>
+<br />
+<table class="table-striped styleTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<p>
+    <button class="btn btn-outline-light" asp-action="Create">Create New</button>
+</p>
+
+
+
+
+

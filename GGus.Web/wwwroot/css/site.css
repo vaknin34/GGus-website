@@ -67,3 +67,7 @@ body {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.no-scroll::-webkit-scrollbar {
+    display: none;
+}

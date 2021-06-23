@@ -5,9 +5,9 @@
 <aside class="asideStyle">
     <form class="formStyle" asp-controller="Products" asp-action="Search">
         <label class="text-light" for="game Name">Game name :</label><br />
-        <input type="text" id="productName" name="productName"><br />
-        <label for="price" style="color:white;">Max Price :</label><br />
-        <select class="choiceStyle" name="price" id="price">
+        <input type="text" id="productName" name="productName" required min="1"><br />
+        <label class="text-light" for="price">Max Price :</label><br />
+        <select class="choiceStyle" name="price" id="price" required>
             <option value="100">100</option>
             <option value="200">200</option>
             <option value="300">300</option>
@@ -18,7 +18,7 @@
         </select>
         <br />
         <label for="categorie" style="color:white;">Category :</label><br />
-        <select class="choiceStyle" name="category" id="category">
+        <select class="choiceStyle" name="category" id="category" required>
             @foreach (var item in Model)
             {
                 <option value="@item.Name">@item.Name</option>
