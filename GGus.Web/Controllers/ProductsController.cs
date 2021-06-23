@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using GGus.Web.Data;
 using GGus.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.ObjectModel;
 
 namespace GGus.Web.Controllers
 {
@@ -176,5 +177,85 @@ namespace GGus.Web.Controllers
         {
             return _context.Product.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        public ActionResult Statistics()
+        {
+            //statistic-1- what is the most "popular" game- the one who appears in most carts
+            ICollection<Stat> statistic1 = new Collection<Stat>();
+            var result = from p in _context.Product.Include(o => o.Carts)
+                         where (p.Carts.Count) > 0
+                         orderby (p.Carts.Count) descending
+                         select p;
+            foreach (var v in result)
+            {
+                statistic1.Add(new Stat(v.Name, v.Carts.Count()));
+            }
+
+            ViewBag.data = statistic1;
+            return View();
+        }
+
+
+        //finish first statistic
+        //statistic 2-what is the most common age of the users
+        /*    ICollection<Stat> statistic2 = new Collection<Stat>();
+
+            int Count;
+            var result2 = (from p in _context.User where 1 < 0 select new Stat2("",0)).ToList();//create empty result table
+            foreach (var pro in _context.User.Include(po => po.Age))
+            {
+                Count = 0;
+                if (pro == null)
+                    continue;
+                foreach (var p. in pro.Age)
+                {
+                    if (po == null)
+                        continue;
+                    if (po.Equals(pro.Age.Year.ToString()))
+                        ++Count;
+                }
+                result2.Add( new Stat2( pro.Age.Year.ToString(), Count));
+            }
+            foreach (var v in result2)
+            {
+                if (v.count > 0)
+                    statistic2.Add(new Stat(v.year, v.count));
+            }
+
+            ViewBag.data2 = statistic2;
+
+            return View();
+        }
+        }
+
+
+    }*/
     }
 }
+
+        public class Stat
+{
+    public string Key;
+    public int Values;
+    public Stat(string key, int values)
+    {
+        Key = key;
+        Values = values;
+    }
+}
+   
+
+
+/*public class Stat2
+{
+    public String year;
+    public int count;
+    public Stat2(String year, int values)
+    {
+        year = year;
+        count = values;
+    }
+}*/
+    
+
