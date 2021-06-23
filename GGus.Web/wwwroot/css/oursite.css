@@ -170,7 +170,7 @@ p.title{
 }
 
 
-.text {
+.privacyText {
     width: 300px;
     height: 27px;
     background: #283743;
@@ -178,10 +178,9 @@ p.title{
     border-radius: 15px;
     cursor: pointer;
 }
-#text{
+#privacyText {
     transition-timing-function: ease;
-    
 }
-div.text:hover {
+div.privacyText:hover {
     width: 800px;
 }

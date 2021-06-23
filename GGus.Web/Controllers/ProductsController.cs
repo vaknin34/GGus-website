@@ -241,16 +241,5 @@ namespace GGus.Web.Controllers
     }
    
 
-
-/*public class Stat2
-{
-    public String year;
-    public int count;
-    public Stat2(String year, int values)
-    {
-        year = year;
-        count = values;
-    }
-}*/
     
 
