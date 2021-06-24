@@ -237,10 +237,21 @@ namespace GGus.Web.Controllers
             return View(await _context.Product.Where(x => x.Id % 12 == 3).ToListAsync());
         }
 
-        public IActionResult AllGames()
+        
+        public async Task<IActionResult> AllGames()
         {
+            var products =
+                from category in _context.Category
+                join prod in _context.Product on category.Id equals prod.CategoryId
+                orderby category.Id
+                select prod;
 
-            return View();
+            return View(await products.ToListAsync());
         }
+       
     }
 }
+
+
+
+
