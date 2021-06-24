@@ -214,15 +214,16 @@ namespace GGus.Web.Controllers
                 }
 
             }
-            foreach (var v in result2)
+           
+            foreach (var v in result2.OrderBy(k => k.Key))
             {
                 if (v.Value > 0)
                 {
-                    statistic2.Add(new Stat(v.Key.ToString() + "    ", v.Value));
-                 
+                    statistic2.Add(new Stat(v.Key.ToString(), v.Value));
                 }
             }
 
+            
             ViewBag.data2 = statistic2;
 
             return View();
