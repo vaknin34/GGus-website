@@ -184,3 +184,7 @@ p.title{
 div.privacyText:hover {
     width: 800px;
 }
+#map {
+    height: 400px;
+    width: 100%;
+}

@@ -42,32 +42,32 @@
         </a>
     </div>
 
-    <div class="container" style="width: 30%; height: 55%; position: absolute; left: 100px; text-align: left; border: none;">
-        <h1 style="color:white;">@Html.DisplayFor(model => model.Name)</h1>
+    <div class="card-container">
+        <h1 class="text-light">@Html.DisplayFor(model => model.Name)</h1>
         <br />
         <div>
-            <h6 style="text-decoration-line:underline;"> Description:</h6>  @Html.DisplayFor(model => model.Details)
+            <h6 class="card-title-style"> Description:</h6>  @Html.DisplayFor(model => model.Details)
         </div>
         <div>
-            <h6 style="text-decoration-line:underline; display:inline;">  Company Name:</h6>  @Html.DisplayFor(model => model.CompanyName)
+            <h6 class="card-title-style">  Company Name:</h6>  @Html.DisplayFor(model => model.CompanyName)
         </div>
         <div>
-            <h6 style="text-decoration-line:underline; display:inline;"> Release Date:</h6>  @Html.DisplayFor(model => model.PublishDate)
+            <h6 class="card-title-style"> Release Date:</h6>  @Html.DisplayFor(model => model.PublishDate)
         </div>
         <div>
-            <h6 style="text-decoration-line:underline;display:inline;"> Category:</h6>
+            <h6 class="card-title-style"> Category:</h6>
             <a class="btn btn-link" href="javascript:history.back()">@Html.DisplayFor(model => model.Category.Name)</a>
         </div>
         <div>
-            <h6 style="text-decoration-line:underline;display:inline;"> Price:</h6>  @Html.DisplayFor(model => model.Price)
+            <h6 class="card-title-style"> Price:</h6>  @Html.DisplayFor(model => model.Price)
         </div>
 
         <hr />
         <form asp-controller="Carts" asp-action="AddToCart" asp-route-id="@Model.Id" method="post">
-            <button type="submit" class="btn btn-outline-success" style="border-color:white;">
+            <button type="submit" class="btn btn-outline-success card-background">
                 Add To Cart
             </button>
-            <!--<a href="#" class="btn btn-outline-warning" style="border-color:white;">Add To WishList</a>-->
+           
             <a href="/Categories/@Html.DisplayFor(model => model.Category.Name)" class="btn btn-outline-light">Back to Game Category</a>
         </form>
     </div>

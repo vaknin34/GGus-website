@@ -63,3 +63,16 @@ input.searchStyle {
 .card-background {
     border-color: white;
 }
+
+.card-container {
+    width: 30%;
+    height: 55%;
+    position: absolute;
+    left: 100px;
+    text-align: left;
+    border: none;
+}
+.card-title-style {
+    text-decoration-line:underline;
+    display:inline;
+}

@@ -5,19 +5,19 @@
 }
 <link href="~/css/cards.css" rel="stylesheet" />
 
-<h1 style="color:white;">Items Found</h1>
+<h1 class="text-light">Items Found</h1>
 
 <br />
 <br />
-<div class="card-group" style="display:flex;">
-    <div class="row " style="border:none">
+<div class="card-group card-goup">
+    <div class="row cardgrouprow">
         @foreach (var item in Model)
         {
-            <div class="col-sm" style="padding:20px 20px;">
-                <div class="card btn-outline-dark " style="width: 18rem;">
-                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" style="color:black; text-decoration:none;">
+            <div class="col-sm collumn">
+                <div class="card btn-outline-dark btn-width">
+                    <a class="asp-style-card" asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">
                         <clickable>
-                            <img src=@item.PhotosUrl1 style="width:288px; height:180px;" class="card-img-top" alt="...">
+                            <img src=@item.PhotosUrl1 class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">@item.Name</h5>
                             </div>
@@ -26,7 +26,7 @@
                     <div class="card-footer">
                         <h6 class="text-muted">Price - @item.Price ₪</h6>
                         <form asp-controller="Carts" asp-action="AddToCart" asp-route-id="@item.Id" method="post">
-                            <button type="submit" class="btn btn-danger btn-sm" style="border-color:white;">
+                            <button type="submit" class="btn btn-danger btn-sm card-background">
                                 Add To Cart
                             </button>
                         </form>

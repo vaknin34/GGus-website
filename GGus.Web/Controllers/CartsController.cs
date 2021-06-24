@@ -179,7 +179,7 @@ namespace GGus.Web.Controllers
             {
                 return NotFound();
             }
-
+            cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
             return View(cart);
         }
 
