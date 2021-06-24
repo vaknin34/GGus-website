@@ -218,7 +218,8 @@ namespace GGus.Web.Controllers
             {
                 if (v.Value > 0)
                 {
-                    statistic2.Add(new Stat(v.Key.ToString(), v.Value));
+                    statistic2.Add(new Stat(v.Key.ToString() + "    ", v.Value));
+                 
                 }
             }
 
