@@ -179,6 +179,7 @@ namespace GGus.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Statistics()
         {
             //statistic-1- what is the most "popular" game- the one who appears in most carts
