@@ -237,7 +237,7 @@ namespace GGus.Web.Controllers
             return View(await _context.Product.Where(x => x.Id % 12 == 3).ToListAsync());
         }
 
-        public IActionResult FanFavorites()
+        public IActionResult AllGames()
         {
 
             return View();

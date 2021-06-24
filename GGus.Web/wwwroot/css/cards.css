@@ -59,3 +59,7 @@ input.searchStyle {
    position:absolute;
    right:100px;
 }
+
+.card-background {
+    border-color: white;
+}
