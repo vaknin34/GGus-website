@@ -31,7 +31,7 @@ namespace GGus.Web.Controllers
         public async Task<IActionResult> Search(string query)
         {
            
-            return PartialView(await _context.Category.Where(c => c.Name.Contains(query)).ToListAsync());
+            return Json(await _context.Category.Where(c => c.Name.Contains(query)).ToListAsync());
         }
 
 

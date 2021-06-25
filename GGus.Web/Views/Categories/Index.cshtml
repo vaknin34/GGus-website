@@ -52,7 +52,27 @@
 
 @section Scripts{
 
-    <script src="~/js/SearchCategory.js"></script>
+   <script src="~/js/SearchCategory.js"></script>
+    
+<script type="text/html" id="hidden-template">
+    <tr>
+        <td>
 
+            {name}
+
+        </td>
+        <td>
+
+            {id}
+
+        </td>
+
+        <td>
+            <a class="btn btn-secondary" href="/Categories/Edit/{id}">Edit</a> 
+            <a class="btn btn-secondary" href="/Categories/Details/{id}">Details</a> 
+            <a class="btn btn-danger" href="/Categories/Delete/{id}"><i class="fa fa-trash"></i></a>
+        </td>
+    </tr>
+    </script>
 }
 
