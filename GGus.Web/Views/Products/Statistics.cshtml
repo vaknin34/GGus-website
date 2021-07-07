@@ -8,85 +8,70 @@
 <br />
 <br />
 <br />
-<br />
-<br />
-<br />
+
 <div>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <div id="container" class="graph1"></div>
+        <div id="container" class="graph1"></div>
 
-    <br />
-    <br />
-    <br />
-    <table id="datatable" class="datatable">
-        <thead>
-            <tr>
-                <th></th>
-                <th>name of game</th>
-
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var v in ViewBag.data as ICollection<Stat>)
-            {
+        <br />
+        <br />
+        <br />
+        <table id="datatable" class="datatable">
+            <thead>
                 <tr>
-                    <th>@v.Key</th>
-                    <th>@v.Values</th>
+                    <th></th>
+                    <th>name of game</th>
+
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
 
-    <script>
-        Highcharts.chart('container', {
-            data: {
-                table: 'datatable'
-            },
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Who is the most popular game'
-            },
-            yAxis: {
-                allowDecimals: false,
+            <tbody>
+                @foreach (var v in ViewBag.data1 as ICollection<Stat>)
+                {
+                    <tr>
+                        <th>@v.Key</th>
+                        <th>@v.Values</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <script>
+            Highcharts.chart('container', {
+                data: {
+                    table: 'datatable'
+                },
+                chart: {
+                    type: 'column'
+                },
                 title: {
-                    text: 'number of Current Cart the game in'
+                    text: 'Who is the most popular game'
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'number of Current Cart the game in'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            this.point.y + ' ' + this.point.name.toLowerCase();
+                    }
                 }
-            },
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
-                        this.point.y + ' ' + this.point.name.toLowerCase();
-                }
-            }
 
-        });
-    </script>
-
+            });
+        </script>
+    
 </div>
 
 
-
-<p>
-
-
-
-
-</p>
-
-
-
 <br />
 <br />
-<br />
-<br />
-<br />
-<br />
+
 <div>
     <div id="container1" class="graph2"></div>
 
@@ -135,12 +120,12 @@
                 title: {
                     text: 'Ages range'
                 },
-               intreval: 1               
+                intreval: 1
             },
             tooltip: {
                 formatter: function () {
                     return '<b>' + this.series.name + '</b><br/><br/>' +
-                        this.point.y + ' '+ this.point.name.toLowerCase();
+                        this.point.y + ' ' + this.point.name.toLowerCase();
                 }
             }
 
@@ -149,37 +134,62 @@
 
 </div>
 
+<br />
+<br />
 
 
+<div>
+    <div id="container3" class="graph3"></div>
 
+    <br />
+    <br />
+    <br />
+    <table id="datatable3" class="datatable3">
+        <thead>
+            <tr>
+                <th></th>
+                <th>number of games</th>
 
+            </tr>
+        </thead>
 
+        <tbody>
+            @foreach (var v in ViewBag.data3 as ICollection<Stat>)
+            {
+                <tr>
+                    <th>@v.Key</th>
+                    <th>@v.Values</th>
+                </tr>
+            }
+        </tbody>
+    </table>
 
+    <script>
+        Highcharts.chart('container3', {
+            data: {
+                table: 'datatable3'
+            },
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Which brand the customers prefer to order'
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}: {point.percentage:.1f} %'
+                    }
+                }
 
+            },
 
+            tooltip: {
+                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            }
+        });
+    </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>

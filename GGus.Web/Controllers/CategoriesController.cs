@@ -248,7 +248,34 @@ namespace GGus.Web.Controllers
 
             return View(await products.ToListAsync());
         }
-       
+
+        [HttpPost]
+        public  IActionResult GroupByPrice()
+        {
+            /*
+            var products =
+                from category in _context.Category
+                join prod in _context.Product on category.Id equals prod.CategoryId
+                orderby prod.Price
+                select prod;
+            */
+            var groups = from p in _context.Product.ToList()
+            group p by p.Price
+            into g
+            orderby g.Key
+            select g;
+
+            List<Product> products = new List<Product>();
+            foreach (var prod in groups) {
+                for (int i = 0; i < prod.ToList().Count; i++)
+                {
+                    products.Add(prod.ElementAt(i));
+                }
+               }
+
+            return View("AllGames", products);
+        }
+
     }
 }
 

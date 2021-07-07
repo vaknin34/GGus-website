@@ -184,16 +184,16 @@ namespace GGus.Web.Controllers
         {
             //statistic-1- what is the most "popular" game- the one who appears in most carts
             ICollection<Stat> statistic1 = new Collection<Stat>();
-            var result = from p in _context.Product.Include(o => o.Carts)
-                         where (p.Carts.Count) > 0
-                         orderby (p.Carts.Count) descending
-                         select p;
+             var result = from p in _context.Product.Include(o => o.Carts)
+                          where (p.Carts.Count) > 0
+                          orderby (p.Carts.Count) descending
+                          select p;
             foreach (var v in result)
             {
                 statistic1.Add(new Stat(v.Name, v.Carts.Count()));
             }
 
-            ViewBag.data = statistic1;
+            ViewBag.data1 = statistic1;
 
             //finish first statistic
             //statistic 2-what is the most common age of the users
@@ -227,8 +227,30 @@ namespace GGus.Web.Controllers
             
             ViewBag.data2 = statistic2;
 
+           
+
+            //statistic-3- what category hava the biggest number of games
+            ICollection<Stat> statistic3 = new Collection<Stat>();
+            List < Product > products = _context.Product.ToList();
+            List<Category> categories = _context.Category.ToList();
+            var result3 = from prod in products
+                          join cat in categories on prod.CategoryId equals cat.Id
+                          group cat by cat.Id into G
+                          select new { id = G.Key ,num = G.Count() };
+
+            var porqua = from popo in result3
+                         join cat in categories on popo.id equals cat.Id
+                         select new { category = cat.Name, count = popo.num };
+            foreach (var v in porqua)
+            {
+                if (v.count > 0)
+                    statistic3.Add(new Stat(v.category, v.count));
+            }
+
+            ViewBag.data3 = statistic3;
             return View();
         }
+    
 
     }
 

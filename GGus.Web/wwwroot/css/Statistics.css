@@ -21,3 +21,15 @@ div.graph2 {
 table.datatable1 {
     display: none;
 }
+
+
+div.graph3 {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+    width: 600px;
+}
+
+table.datatable3 {
+    display: none;
+}

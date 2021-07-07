@@ -5,8 +5,14 @@
     ViewData["Title"] = "All Games";
 }
 
-
+@model IEnumerable<GGus.Web.Models.Product>
 <h1 class="game-title">All Games Page</h1>
+
+<form asp-action="GroupByPrice" method="post">
+    <button asp-type="submit" class="btn-dark groupby" id="groupby">
+        Group By Price
+    </button>
+</form>
 <div class="card-group">
     <div class="row cardgrouprow">
         @foreach (var item in Model)
