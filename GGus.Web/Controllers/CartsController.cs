@@ -28,7 +28,7 @@ namespace GGus.Web.Controllers
             List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
 
             foreach (Cart cart in applicationDbContext) {
-                cart.User = _context.User.FirstOrDefault(u => u.Id == cart.Id);
+                cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
             }
             return View(applicationDbContext);
         }
@@ -76,39 +76,18 @@ namespace GGus.Web.Controllers
 
             var cart = await _context.Cart
                 .Include(c => c.User)
+                .Include(p => p.Products)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cart == null)
             {
                 return NotFound();
             }
-
+            cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
+            
             return View(cart);
         }
 
-        // GET: Carts/Create
-        [Authorize(Roles = "Admin")]
-        public IActionResult Create()
-        {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email");
-            return View();
-        }
-
-        // POST: Carts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,TotalPrice")] Cart cart)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(cart);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
-            return View(cart);
-        }
+      
 
         // GET: Carts/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -188,8 +167,15 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cart = await _context.Cart.FindAsync(id);
-            _context.Cart.Remove(cart);
+            //var cart = await _context.Cart.FindAsync(id);
+            String userName = HttpContext.User.Identity.Name;
+            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+            Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
+            cart.Products.Clear();
+            cart.TotalPrice = 0;
+            _context.Update(cart);
+
+            //_context.Cart.Remove(cart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
