@@ -4,21 +4,34 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="font-weight-lighter text-light">Details of Category</h1>
 
+<hr />
 <div>
-    <h4>Category</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
+    <table class="table-striped styleTable">
+        <thead>
+            <tr>
+                <th>
+                    <div>Category Id</div>
+                </th>
+                <th>
+                    <div>Category Name</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>
+                @Html.DisplayFor(model => model.Id)
+                </th>
+                <th>
+                @Html.DisplayFor(model => model.Name)
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Update Details</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
 </div>

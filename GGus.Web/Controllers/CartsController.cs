@@ -97,7 +97,7 @@ namespace GGus.Web.Controllers
                 return NotFound();
             }
 
-            var cart = await _context.Cart.FindAsync(id);
+            var cart = await _context.Cart.Include(p=>p.Products).FirstOrDefaultAsync(m=>m.Id == id);
             if (cart == null)
             {
                 return NotFound();
@@ -168,9 +168,11 @@ namespace GGus.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             //var cart = await _context.Cart.FindAsync(id);
-            String userName = HttpContext.User.Identity.Name;
-            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
-            Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
+            //var cart = _context.Cart.Include(db => db.Products).FirstOrDefaultAsync(c=>c.Id == id);
+            var cart = await _context.Cart
+               .Include(c => c.User)
+               .Include(p => p.Products)
+               .FirstOrDefaultAsync(m => m.Id == id);
             cart.Products.Clear();
             cart.TotalPrice = 0;
             _context.Update(cart);

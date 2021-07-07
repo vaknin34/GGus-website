@@ -4,51 +4,46 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="font-weight-lighter text-light">User Details</h1>
 
+<hr />
 <div>
-    <h4>User</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-    </dl>
+    <table class="table-striped styleTable">
+        <thead>
+            <tr>
+                <td><div>User Id</div></td>
+                <td><div>User Name</div></td>
+                <td><div>Email</div></td>
+                <td><div>Age</div></td>
+                <td><div>Phone Number</div></td>
+                <td><div>Type of user</div></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>
+                    @Html.DisplayFor(model=> model.Id)
+                </th>
+                <th>
+                  @Html.DisplayFor(model => model.Username)
+                </th>
+                <th>
+                 @Html.DisplayFor(model => model.Email)
+                </th>
+                <th>
+                @Html.DisplayFor(model => model.Age)
+                </th>
+                <th>
+                 @Html.DisplayFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                 @Html.DisplayFor(model => model.Type)
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
 </div>

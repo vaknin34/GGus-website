@@ -23,15 +23,32 @@
                 <input asp-for="TotalPrice" class="form-control" />
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
+            @foreach (var item in Model.Products)
+            {
+                <div class="form-group">
+                    <label>Game Name: @Html.DisplayFor(modelItem => item.Name)</label>
+                    <img src=@item.PhotosUrl1>
+                    <label>Game Price: @Html.DisplayFor(modelItem => item.Price) </label>
+                    <br />
+
+                </div>
+            }
+
+            <div class="form-group">
+                <a asp-controller="Carts" asp-action="Delete" asp-route-id="@Model.Id" method="post" class="btn btn-outline-warning">Remove products from this cart</a>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+
+
     </div>
 </div>
 
 <div>
     <a class="btn btn-outline-secondary" asp-action="Index">Back to List</a>
+    <br />
 </div>
 
 @section Scripts {

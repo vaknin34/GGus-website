@@ -2,9 +2,9 @@
 @using GGus.Web.Models;
 @{
     ViewBag.Title = "statistics";
-
-
 }
+
+<h1 class="font-weight-lighter text-light">Statistics</h1>
 <br />
 <br />
 <br />
@@ -14,58 +14,58 @@
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <div id="container" class="graph1"></div>
+    <div id="container" class="graph1"></div>
 
-        <br />
-        <br />
-        <br />
-        <table id="datatable" class="datatable">
-            <thead>
+    <br />
+    <br />
+    <br />
+    <table id="datatable" class="datatable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>name of game</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var v in ViewBag.data1 as ICollection<Stat>)
+            {
                 <tr>
-                    <th></th>
-                    <th>name of game</th>
-
+                    <th>@v.Key</th>
+                    <th>@v.Values</th>
                 </tr>
-            </thead>
+            }
+        </tbody>
+    </table>
 
-            <tbody>
-                @foreach (var v in ViewBag.data1 as ICollection<Stat>)
-                {
-                    <tr>
-                        <th>@v.Key</th>
-                        <th>@v.Values</th>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <script>
-            Highcharts.chart('container', {
-                data: {
-                    table: 'datatable'
-                },
-                chart: {
-                    type: 'column'
-                },
+    <script>
+        Highcharts.chart('container', {
+            data: {
+                table: 'datatable'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'What is the most popular game'
+            },
+            yAxis: {
+                allowDecimals: false,
                 title: {
-                    text: 'What is the most popular game'
-                },
-                yAxis: {
-                    allowDecimals: false,
-                    title: {
-                        text: 'number of Current Cart the game in'
-                    }
-                },
-                tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.series.name + '</b><br/>' +
-                            this.point.y + ' ' + this.point.name.toLowerCase();
-                    }
+                    text: 'number of Current Cart the game in'
                 }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
 
-            });
-        </script>
-    
+        });
+    </script>
+
 </div>
 
 
