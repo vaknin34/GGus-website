@@ -123,7 +123,7 @@ namespace GGus.Web.Controllers
                 {
                     if (!UserExists(user.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("PageNotFound", "Home");
                     }
                     else
                     {

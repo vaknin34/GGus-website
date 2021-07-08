@@ -1,3 +1,4 @@
+
 body {
     background-color: #334554;
     overflow-x: hidden;
@@ -160,14 +161,16 @@ p.paragraph{
     font-size:12px;
 }
 @font-face {
-    font-family: system-ui;
-   
+    font-family: eynav;
+    font-weight:bold;
+    font-style:italic;
 }
-p.title{
-    color:#ce1b00;
-    font-family:system-ui;
-    text-decoration:underline;
+p.title {
+    color: #ce1b00;
+    font-family: eynav;
+    text-decoration: underline;
 }
+
 
 
 .privacyText {

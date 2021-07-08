@@ -116,7 +116,7 @@ namespace GGus.Web.Controllers
                 {
                     if (!CategoryExists(category.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("PageNotFound", "Home");
                     }
                     else
                     {

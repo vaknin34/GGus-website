@@ -67,5 +67,11 @@ namespace GGus.Controllers
         {
             return View();
         }
+
+       
+        public IActionResult PageNotFound()
+        {
+            return View();
+        }
     }
 }

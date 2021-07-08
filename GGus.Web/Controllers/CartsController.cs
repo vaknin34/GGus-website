@@ -129,7 +129,7 @@ namespace GGus.Web.Controllers
                 {
                     if (!CartExists(cart.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction("PageNotFound", "Home");
                     }
                     else
                     {

@@ -17,9 +17,13 @@
     </select>
     <label class="text-light" for="YearofBirth">Year of Birth :</label>
     <input type="number" min="1950" max="2021" step="1" name="YearofBirth" id="YearofBirth"  required/>
-    <br /><br />
+    
     <button type="submit" value="Search" class="btn btn-dark">Search</button>
 </form>
+    <br />
+<p>
+    <a class="btn btn-outline-light" asp-action="Create">Create New</a>
+</p>
 <br />
 <table class="table-striped styleTable">
     <thead>
@@ -78,9 +82,7 @@
         }
     </tbody>
 </table>
-<p>
-    <a class="btn btn-outline-light" asp-action="Create">Create New</a>
-</p>
+
 
 
 
