@@ -4,8 +4,8 @@
     ViewData["Title"] = "Index";
 }
 <link href="~/css/cards.css" rel="stylesheet" />
+<h1 class="font-weight-lighter text-light">Items Found</h1>
 
-<h1 class="text-light">Items Found</h1>
 
 <br />
 <br />
@@ -37,6 +37,15 @@
 
 
     </div>
+</div>
+@if (Model.ToList().Count == 0)
+{
+    <h5> Games not found.</h5>
+}
+<br />
+<br />
+<div>
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Return to home page</a>
 </div>
 
 
