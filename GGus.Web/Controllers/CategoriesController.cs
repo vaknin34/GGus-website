@@ -24,33 +24,44 @@ namespace GGus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            try
+            {
+                return View(await _context.Category.ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Search(string query)
         {
-           
-            return Json(await _context.Category.Where(c => c.Name.Contains(query)).ToListAsync());
+            try
+            {
+                return Json(await _context.Category.Where(c => c.Name.Contains(query)).ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+                var category = await _context.Category
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (category == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            return View(category);
+                return View(category);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Categories/Create
@@ -67,30 +78,38 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(category);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(category);
             }
-            return View(category);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Categories/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
+                var category = await _context.Category.FindAsync(id);
+                if (category == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                return View(category);
             }
-            return View(category);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Categories/Edit/5
@@ -100,51 +119,59 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != category.Id)
+            try
             {
-                return NotFound();
-            }
+                if (id != category.Id)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
+                    try
                     {
-                        return RedirectToAction("PageNotFound", "Home");
+                        _context.Update(category);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!CategoryExists(category.Id))
+                        {
+                            return RedirectToAction("PageNotFound", "Home");
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(category);
             }
-            return View(category);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Categories/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+                var category = await _context.Category
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (category == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            return View(category);
+                return View(category);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Categories/Delete/5
@@ -152,10 +179,14 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var category = await _context.Category.FindAsync(id);
+                _context.Category.Remove(category);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         private bool CategoryExists(int id)
@@ -240,40 +271,42 @@ namespace GGus.Web.Controllers
         
         public async Task<IActionResult> AllGames()
         {
-            var products =
-                from category in _context.Category
-                join prod in _context.Product on category.Id equals prod.CategoryId
-                orderby category.Id
-                select prod;
+            try
+            {
+                var products =
+                    from category in _context.Category
+                    join prod in _context.Product on category.Id equals prod.CategoryId
+                    orderby category.Id
+                    select prod;
 
-            return View(await products.ToListAsync());
+                return View(await products.ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         [HttpPost]
         public  IActionResult GroupByPrice()
         {
-            /*
-            var products =
-                from category in _context.Category
-                join prod in _context.Product on category.Id equals prod.CategoryId
-                orderby prod.Price
-                select prod;
-            */
-            var groups = from p in _context.Product.ToList()
-            group p by p.Price
-            into g
-            orderby g.Key
-            select g;
+            try
+            {
+                var groups = from p in _context.Product.ToList()
+                             group p by p.Price
+                into g
+                             orderby g.Key
+                             select g;
 
-            List<Product> products = new List<Product>();
-            foreach (var prod in groups) {
-                for (int i = 0; i < prod.ToList().Count; i++)
+                List<Product> products = new List<Product>();
+                foreach (var prod in groups)
                 {
-                    products.Add(prod.ElementAt(i));
+                    for (int i = 0; i < prod.ToList().Count; i++)
+                    {
+                        products.Add(prod.ElementAt(i));
+                    }
                 }
-               }
 
-            return View("AllGames", products);
+                return View("AllGames", products);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
     }

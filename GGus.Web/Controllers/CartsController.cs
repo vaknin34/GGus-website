@@ -24,67 +24,83 @@ namespace GGus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
+            try
+            {
+                List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
 
-            List<Cart> applicationDbContext = _context.Cart.Include(c => c.User).Include(p => p.Products).ToList();
-
-            foreach (Cart cart in applicationDbContext) {
-                cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
+                foreach (Cart cart in applicationDbContext)
+                {
+                    cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
+                }
+                return View(applicationDbContext);
             }
-            return View(applicationDbContext);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
         [Authorize]
         public IActionResult Search(string query)
         {
-            String userName = User.Identity.Name;
+            try
+            {
+                String userName = User.Identity.Name;
 
-            User user = _context.User.FirstOrDefault(x => x.Username == userName);
+                User user = _context.User.FirstOrDefault(x => x.Username == userName);
 
-            Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
+                Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
 
 
 
-            if(query == null)
+                if (query == null)
+                    return View("MyCart", cart);
+
+                List<Product> products = cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query)).ToList();
+                cart.Products = products;
+
                 return View("MyCart", cart);
-
-            List<Product> products = cart.Products.Where(p => p.Name.Contains(query) || p.Details.Contains(query)).ToList();
-            cart.Products = products;
-
-            return View("MyCart", cart);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SearchCart(string query)
         {
-
-            List<Cart> carts = _context.Cart.Where(c => c.User.Username.Contains(query)).Include(p => p.Products).ToList();
-
-            foreach (Cart c in carts)
+            try
             {
-                c.User = _context.User.FirstOrDefault(u => u.Id == c.UserId);
-            }
 
-            return PartialView(carts);
+                List<Cart> carts = _context.Cart.Where(c => c.User.Username.Contains(query)).Include(p => p.Products).ToList();
+
+                foreach (Cart c in carts)
+                {
+                    c.User = _context.User.FirstOrDefault(u => u.Id == c.UserId);
+                }
+
+                return PartialView(carts);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
 
         // GET: Carts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var cart = await _context.Cart
-                .Include(c => c.User)
-                .Include(p => p.Products)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cart == null)
-            {
-                return NotFound();
+                var cart = await _context.Cart
+                    .Include(c => c.User)
+                    .Include(p => p.Products)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (cart == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
+
+                return View(cart);
             }
-            cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
-            
-            return View(cart);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
       
@@ -92,18 +108,22 @@ namespace GGus.Web.Controllers
         // GET: Carts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var cart = await _context.Cart.Include(p=>p.Products).FirstOrDefaultAsync(m=>m.Id == id);
-            if (cart == null)
-            {
-                return NotFound();
+                var cart = await _context.Cart.Include(p => p.Products).FirstOrDefaultAsync(m => m.Id == id);
+                if (cart == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
+                return View(cart);
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
-            return View(cart);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Carts/Edit/5
@@ -113,53 +133,59 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,TotalPrice")] Cart cart)
         {
+            try { 
             if (id != cart.Id)
             {
-                return NotFound();
+                return RedirectToAction("PageNotFound", "Home");
             }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(cart);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CartExists(cart.Id))
+                    try
                     {
-                        return RedirectToAction("PageNotFound", "Home");
+                        _context.Update(cart);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!CartExists(cart.Id))
+                        {
+                            return RedirectToAction("PageNotFound", "Home");
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
-                }
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.User, "Id", "Email", cart.UserId);
             return View(cart);
+            }catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Carts/Delete/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var cart = await _context.Cart
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cart == null)
-            {
-                return NotFound();
+                var cart = await _context.Cart
+                    .Include(c => c.User)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (cart == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
+                return View(cart);
             }
-            cart.User = _context.User.FirstOrDefault(u => u.Id == cart.UserId);
-            return View(cart);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Carts/Delete/5
@@ -167,20 +193,24 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //var cart = await _context.Cart.FindAsync(id);
-            //var cart = _context.Cart.Include(db => db.Products).FirstOrDefaultAsync(c=>c.Id == id);
-            var cart = await _context.Cart
-               .Include(c => c.User)
-               .Include(p => p.Products)
-               .FirstOrDefaultAsync(m => m.Id == id);
-            cart.Products.Clear();
-            cart.TotalPrice = 0;
-            _context.Update(cart);
+            try
+            {
 
-            //_context.Cart.Remove(cart);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                var cart = await _context.Cart
+                   .Include(c => c.User)
+                   .Include(p => p.Products)
+                   .FirstOrDefaultAsync(m => m.Id == id);
+                cart.Products.Clear();
+                cart.TotalPrice = 0;
+                _context.Update(cart);
+
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
+
 
         private bool CartExists(int id)
         {
@@ -189,17 +219,21 @@ namespace GGus.Web.Controllers
 
         public IActionResult MyCart()
         {
-            String userName = HttpContext.User.Identity.Name;
-            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
-            Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
-            cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
-
-            if (cart == null)
+            try
             {
-                return NotFound();
-            }
+                String userName = HttpContext.User.Identity.Name;
+                User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+                Cart cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
+                cart.Products = _context.Product.Where(x => x.Carts.Contains(cart)).ToList();
 
-            return View(cart);
+                if (cart == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+
+                return View(cart);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         [HttpPost, ActionName("AddToCart")]
@@ -207,29 +241,33 @@ namespace GGus.Web.Controllers
         [Authorize]
         public async Task<IActionResult> AddToCart(int id) //product id
         {
-            Product product = _context.Product.Include(db => db.Carts).FirstOrDefault(x => x.Id == id);
-            String userName = HttpContext.User.Identity.Name;
-            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
-            Cart cart = _context.Cart.Include(db => db.Products)
-             .FirstOrDefault(x => x.UserId == user.Id);
-
-
-            if (user.Cart.Products == null)
-                user.Cart.Products = new List<Product>();
-            if (product.Carts == null)
-                product.Carts = new List<Cart>();
-
-            if (!(cart.Products.Contains(product) && product.Carts.Contains(cart)))
+            try
             {
+                Product product = _context.Product.Include(db => db.Carts).FirstOrDefault(x => x.Id == id);
+                String userName = HttpContext.User.Identity.Name;
+                User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+                Cart cart = _context.Cart.Include(db => db.Products)
+                 .FirstOrDefault(x => x.UserId == user.Id);
 
-                user.Cart.Products.Add(product);
-                product.Carts.Add(cart);
-                user.Cart.TotalPrice += product.Price;
-                _context.Update(cart);
-                _context.Update(product);
-                await _context.SaveChangesAsync();
+
+                if (user.Cart.Products == null)
+                    user.Cart.Products = new List<Product>();
+                if (product.Carts == null)
+                    product.Carts = new List<Cart>();
+
+                if (!(cart.Products.Contains(product) && product.Carts.Contains(cart)))
+                {
+
+                    user.Cart.Products.Add(product);
+                    product.Carts.Add(cart);
+                    user.Cart.TotalPrice += product.Price;
+                    _context.Update(cart);
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction(nameof(MyCart));
             }
-            return RedirectToAction(nameof(MyCart));
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Carts/removeProduct/5
@@ -237,39 +275,50 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveProduct(int id)
         {
-            Product product = _context.Product.FirstOrDefault(x => x.Id == id);
-            String userName = HttpContext.User.Identity.Name;
-
-            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
-            Cart cart = _context.Cart.Include(db => db.Products)
-                .FirstOrDefault(x => x.UserId == user.Id);
-
-            if (product != null)
+            try
             {
-                cart.Products.Remove(product);
-                cart.TotalPrice -= product.Price;
+                Product product = _context.Product.FirstOrDefault(x => x.Id == id);
+                String userName = HttpContext.User.Identity.Name;
+
+                User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+                Cart cart = _context.Cart.Include(db => db.Products)
+                    .FirstOrDefault(x => x.UserId == user.Id);
+
+                if (product != null)
+                {
+                    cart.Products.Remove(product);
+                    cart.TotalPrice -= product.Price;
+                }
+
+                _context.Attach<Cart>(cart);
+                _context.Entry(cart).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(MyCart));
             }
-         
-            _context.Attach<Cart>(cart);
-            _context.Entry(cart).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(MyCart));
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         [Authorize]
         public async Task<IActionResult> AfterPayment()
         {
-            String userName = HttpContext.User.Identity.Name;
-            User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
-            Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
+            try
+            {
+                String userName = HttpContext.User.Identity.Name;
+                User user = _context.User.FirstOrDefault(x => x.Username.Equals(userName));
+                if (user == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                Cart cart = _context.Cart.Include(db => db.Products).FirstOrDefault(x => x.UserId == user.Id);
 
-            int i = cart.Products.RemoveAll(p => p.Id == p.Id);
-            cart.TotalPrice = 0;
-            
-            _context.Attach<Cart>(cart);
-            _context.Entry(cart).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return View();
+                int i = cart.Products.RemoveAll(p => p.Id == p.Id);
+                cart.TotalPrice = 0;
+
+                _context.Attach<Cart>(cart);
+                _context.Entry(cart).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return View();
+            } catch { return RedirectToAction("PageNotFound", "Home"); }
         }
     }
 }

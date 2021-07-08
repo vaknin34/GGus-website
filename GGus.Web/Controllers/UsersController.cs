@@ -27,36 +27,50 @@ namespace GGus.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            try
+            {
+                return View(await _context.User.ToListAsync());
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Search(string Username,string role,int YearofBirth)
+        public async Task<IActionResult> Search(string Username, string role, int YearofBirth)
         {
-            int type = 0;
-            if (role.Equals("Admin")) {
-                type = 1;
-                
-            }
+            try
+            {
+                int type = 0;
+                if (role.Equals("Admin"))
+                {
+                    type = 1;
 
-            return View(await _context.User.Where(u => u.Username.Contains(Username) && u.Age.Year == YearofBirth && (int)u.Type == type).ToListAsync());
+                }
+
+                return View(await _context.User.Where(u => u.Username.Contains(Username) && u.Age.Year == YearofBirth && (int)u.Type == type).ToListAsync());
+
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+                var user = await _context.User
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (user == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            return View(user);
+                return View(user);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Users/Create
@@ -72,30 +86,38 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Username,Password,Email,Age,PhoneNumber,Type")] User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(user);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(user);
             }
-            return View(user);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Users/Edit/5
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
+                var user = await _context.User.FindAsync(id);
+                if (user == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
+                return View(user);
             }
-            return View(user);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Users/Edit/5
@@ -106,51 +128,59 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Email,Age,PhoneNumber,Type")] User user)
         {
-            if (id != user.Id)
+            try
             {
-                return NotFound();
-            }
+                if (id != user.Id)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    user.Cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
-                    _context.Update(user);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserExists(user.Id))
+                    try
                     {
-                        return RedirectToAction("PageNotFound", "Home");
+                        user.Cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
+                        _context.Update(user);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!UserExists(user.Id))
+                        {
+                            return RedirectToAction("PageNotFound", "Home");
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                return View(user);
             }
-            return View(user);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
         [Authorize(Roles = "Admin")]
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+                var user = await _context.User
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (user == null)
+                {
+                    return RedirectToAction("PageNotFound", "Home");
+                }
 
-            return View(user);
+                return View(user);
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // POST: Users/Delete/5
@@ -158,10 +188,14 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var user = await _context.User.FindAsync(id);
+                _context.User.Remove(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         private bool UserExists(int id)
@@ -182,23 +216,27 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("Id,Username,Password,Email,Age,PhoneNumber")] User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var q = _context.User.FirstOrDefault(u => u.Username == user.Username);
-                if (q == null)
+                if (ModelState.IsValid)
                 {
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
-                    var m = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
-                    Signin(m);
-                    return RedirectToAction(nameof(Index), "Home");
+                    var q = _context.User.FirstOrDefault(u => u.Username == user.Username);
+                    if (q == null)
+                    {
+                        _context.Add(user);
+                        await _context.SaveChangesAsync();
+                        var m = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
+                        Signin(m);
+                        return RedirectToAction(nameof(Index), "Home");
+                    }
+                    else
+                    {
+                        ViewData["Error"] = "Unable to comply; Cannot register this user";
+                    }
                 }
-                else
-                {
-                    ViewData["Error"] = "Unable to comply; Cannot register this user";
-                }
+                return View(user);
             }
-            return View(user);
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
 
         // GET: Users/Login
@@ -214,45 +252,55 @@ namespace GGus.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login([Bind("Id,Username,Password")] User user)
         {
-            var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
-            if (q != null)
+            try
             {
-                Signin(q);
-                return RedirectToAction(nameof(Index), "Home");
+                var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
+                if (q != null)
+                {
+                    Signin(q);
+                    return RedirectToAction(nameof(Index), "Home");
+                }
+                else
+                {
+                    ViewData["Error"] = "Username and/or password are incorrect.";
+                    return View(user);
+                }
             }
-            else
-            {
-                ViewData["Error"] = "Username and/or password are incorrect.";
-                return View(user);
-            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
 
         }
         private async void Signin(User account)
         {
-            var claims = new List<Claim>
+           
+                var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, account.Username),
                     new Claim(ClaimTypes.Role, account.Type.ToString()),
                 };
 
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            var authProperties = new AuthenticationProperties
-            {
-                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
-            };
+                var authProperties = new AuthenticationProperties
+                {
+                    //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)
+                };
 
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+            
         }
 
         public async Task<IActionResult> LogOut()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            try
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Login");
+            }
+            catch { return RedirectToAction("PageNotFound", "Home"); }
         }
     }
 }
