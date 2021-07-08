@@ -115,6 +115,7 @@ namespace GGus.Web.Controllers
             {
                 try
                 {
+                    user.Cart = _context.Cart.FirstOrDefault(x => x.UserId == user.Id);
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
